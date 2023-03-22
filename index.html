@@ -1,123 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yeheng Liang - Resume</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.5;
-            color: #333;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: bold;
-        }
-        h1 {
-            font-size: 2.5em;
-        }
-        h2 {
-            font-size: 2em;
-        }
-        h3 {
-            font-size: 1.5em;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        a {
-            color: #0056b3;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .section-title {
-            border-bottom: 2px solid #0056b3;
-            margin-bottom: 1em;
-        }
-        .cvitem {
-            margin-bottom: 0.5em;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yeheng Liang - Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Yeheng Liang</h1>
-    <p>Queens, NY |  <a href="mailto:yl4829@columbia.edu">yl4829@columbia.edu</a></p>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <h2 class="section-title">Education</h2>
+  <section id="home">
+    <h1>Welcome to My Portfolio</h1>
+    <p>Hi, I'm Yeheng Liang and this is my personal website.</p>
+  </section>
 
-    <h3>Columbia University</h3>
-    <p><strong>Master of Arts in Statistics</strong> (2019-2021)</p>
-    <p>Specialization in Data Science and Statistical Finance</p>
-    <p>Relevant Coursework: Statistical Methods in Finance, Advanced Data Analysis, Elements of Data Science with Python, Advanced Machine Learning, Capital Markets and Investments--Quantitative Approach</p>
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I am a Quantitative Analyst with a strong background in statistics, economics, and actuarial science. I have experience in data analysis, machine learning, and statistical modeling, and I am proficient in R, Python, and SQL. I am passionate about solving complex problems and making data-driven decisions.</p>
+  </section>
 
-    <h3>Binghamton University</h3>
-    <p><strong>Bachelor of Science in Actuarial Science and Bachelor of Science in Economics</strong> (2015-2019)</p>
-    <p>Specialization in Applied Economic Analysis</p>
-    <p>GPA: 3.932/4.00, Honors: Summa Cum Laude, Honors in Mathematical Sciences</p>
-    <p>Relevant Coursework: Time Series Analysis, Regression, Statistical Learning & Data Mining, Econometric, Economic Forecasting, Intro to Financial Mathematics.</p>
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul>
+      <li>
+        <h3>Genetic Testing for Common Tumors</h3>
+        <p>Developed a machine learning pipeline with logistic regression, elastic net, and random forest classifiers to detect real genetic features and their linkage between tumors. Preprocessed data for binary classification and led the team in dividing work and connecting the results.</p>
+      </li>
+    </ul>
+  </section>
 
-    <h2 class="section-title">Experience</h2>
+  <section id="publications">
+    <h2>Publications</h2>
+    <ul>
+      <li>
+        <h3>Functional Random Forests for Curve Response</h3>
+        <p><em>Scientific Reports, Dec 17, 2021</em></p>
+        <p>This publication introduces a novel functional random forests (FunFor) approach to model functional data response that is densely and regularly measured. The FunFor approach predicts curve responses for new observations and selects important variables from a large set of scalar predictors. It inherits the efficiency of traditional random forests in detecting complex relationships, including nonlinear and high-order interactions, without imposing parametric and distributional assumptions. The excellent performance of the FunFor approach is demonstrated in eight simulation settings and one real-data analysis. The FunFor approach has great potential for widespread application in various fields due to its minimal requirement on tuning parameters and its distribution-free and model-free nature. An R package named 'FunFor' implementing the FunFor approach is available at GitHub.</p>
+      </li>
+    </ul>
+  </section>
 
-           <h3>Quantitative Analyst, RVI Group (Aug 2022 - Current)</h3>
-        <ul>
-            <li>Process external data inputs to support RVI Passenger Vehicle's residual value risk analysis</li>
-            <li>Build BEV Sales Penetration Forecast model (BASS and Stack ML) and New BEV Residual Value Forecast model (RF)</li>
-            <li>Perform research on BEV battery leasing and battery RV to support Passenger Vehicle's underwriting and other functions</li>
-            <li>Assist in recalibration of residual value forecast model and lease return rate forecast model</li>
-            <li>Assist in Passenger Vehicle's business development and underwriting for both North America and international markets</li>
-        </ul>
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>If you'd like to get in touch, feel free to email me at <a href="mailto:yl4829@columbia.edu">yl4829@columbia.edu</a> or connect with me on <a href="https://www.linkedin.com/in/yehengliang/" target="_blank">LinkedIn</a>.</p>
+  </section>
 
-        <h3>Quantitative Analyst Intern, RVI Group (May 2022 - Aug 2022)</h3>
-        <ul>
-            <li>Collect and process external data to support BEV (Battery Electric Vehicle) and PHEV (Plug-in Hybrid EV) research</li>
-            <li>Perform and update market data related to the BEV and PHEV industry</li>
-            <li>Conduct research on BEV and PHEV penetration in the US market in the aspect of cost of ownership</li>
-            <li>Present research and findings of market trends on BEV and PHEV penetration to support new product development</li>
-        </ul>
-
-        <h3>Graduate Teaching Assistant, Binghamton University Math Department (Nov 2019 - May 2022)</h3>
-        <ul>
-            <li>Assisted two classes (Mathematical Statistics and Intro to R or Intro to Regression and Graduate level Regression I) of average 25 students in each class simultaneously</li>
-            <li>Designed code snippets, assignments, class project, and quiz/exam questions on various Stat and Regression topics including tidyverse exercise, hypothesis testing, statistical inference, and regression analysis</li>
-            <li>Led class review sessions and answered student questions via emails or zoom</li>
-        </ul>
-
-        <h3>Machine Learning Algorithms Research Assistant, Guifang Fu, Binghamton University Math Department (Dec 2020 - Aug 2021)</h3>
-<ul>
-    <li>Topic: Functional Random Forests for Curve Response</li>
-    <li>Data Synthetization and Design: Built 10+ data simulation settings with different noise level, frequency, and main signal to ensure comprehensibility of the algorithm.</li>
-    <li>Algorithm Analysis: Compared with existing method on functional data and discovered the advantages and disadvantages of our algorithm (FRF) in 10+ synthetic settings and 1 real tree leaf data setting.</li>
-    <li>Multi-domain Collaboration: Provided weekly progress report to my instructor and MLA lead. Conducted weekly discussions with my team with report and graphic visualization of the results.</li>
-</ul>
-
-<h2>Selected Project</h2>
-<h3>Genetic Testing for Common Tumors (Machine Learning, Feature Selection, Ultra-high Dimensional Data)</h3>
-<p><strong>Tech:</strong> Python, sklearn, matplotlib, NumPy, Pandas, Jupyter Notebook.</p>
-<ul>
-    <li>Preprocessed the data for binary classification setting with no missing data for each tumor type in this project.</li>
-    <li>Developed a ML-pipeline with logistic regression with elastic net and Random Forest Classifier to detect real genetic features.</li>
-    <li>Stacked the two algorithms to detect more robust genetic features associated with each tumor and linkage between tumors.</li>
-    <li>Led the team by dividing work in respect to each team member's strength and connecting the work with each member.</li>
-</ul>
-
-<h2>Skills Summary</h2>
-<p><strong>Languages:</strong> R (advanced), Python (intermediate), SQL (intermediate), MATLAB, EViews SATA</p>
-<p><strong>Frameworks:</strong> tidyverse, ggplot2, purr, Scikit-Learn, SciPy, TensorFlow, Keras, Matplotlib, Seaborn</p>
-<p><strong>Tools:</strong> RStudio, RMarkdown, GIT, Jupyter Notebook, Excel, PowerBI</p>
-<p><strong>Soft Skills:</strong> Communication, Team Leading, Time Management, Critical Thinking, Writing, Public Speaking</p>
-<p><strong>Other:</strong> SOA Financial Mathematics Exam</p>
-
-<h2>Publications, Honors and Awards</h2>
-<p><strong>Functional Random Forests for Curve Response:</strong> Scientific Reports 11, 24159 (2021) (Genetic association study)</p>
-<p><strong>Miguel Arcones Memorial Award,</strong> Binghamton University (Presented May 2021) (one person per year)</p>
-<p><strong>Class of 1989 Scholarship,</strong> Binghamton University (Presented July 2020)</p>
-<p><strong>Phi Beta Kappa National Honor Society,</strong> Binghamton University (Since Dec 2020)</p>
+<footer>
+    <p>&copy; 2023 Yeheng Liang. All rights reserved.</p>
+  </footer>
 </body>
 </html>
-
-  
-
