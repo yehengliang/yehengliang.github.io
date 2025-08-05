@@ -1,94 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yeheng Liang - Portfolio</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#publications">Publications</a></li>
-        <li><a href="#publications">Organizations</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section id="home">
-    <h1>Welcome to My Portfolio</h1>
-    <p>Hi, I'm Yeheng Liang and this is my personal website.</p>
-  </section>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I am an experienced Quantitative Analyst with a Master of Arts in Statistics, specialized in Data Science and Statistical Finance from Columbia University. As a Quantitative Analyst at RVI Group, I build and maintain models to support Passenger Vehicle’s residual value risk analysis, conduct research on topics related to passenger vehicles, such as BEV battery leasing and battery RV, and assist in recalibration of residual value forecast and lease return rate forecast models. I am highly analytical with a strong educational background in statistics, finance, and economics, and passionate about utilizing data-driven approaches to solve complex problems.</p>
-    
-    <h3>Skill Set</h3>
-    <ul>
-      <li>Statistics: high-dimensional, “big data” modeling, machine/deep learning, statistical computing</li>
-      <li>Quantitative finance: econometrics, general cash flows, portfolios, and asset liability management</li>
-      <li>Language: R, Python, SQL, MATLAB, EViews, LaTeX</li>
-      <li>English, Chinese</li>
-    </ul>
-  </section>
-
-  
-  <section id="projects">
-    <h2>Projects</h2>
-    <ul>
-      <li>
-        <h3>Genetic Testing for Common Tumors</h3>
-        <p>Developed a machine learning pipeline with logistic regression, elastic net, and random forest classifiers to detect real genetic features and their linkage between tumors. Preprocessed data for binary classification and led the team in dividing work and connecting the results.</p>
-      </li>
-      <li>
-        <h3>South Korea Covid-19 Cases Prediction and Variable Importance Analysis</h3>
-        <p>Performed data preprocessing on various tables of 180 days SK Covid cases information, weather, policy, and location. Designed models by different model checking aspect and suggestion to obtain normal residuals for inference. Developed a ML-pipeline with Random Forest, Elastic Net, SVM Regression and LR to predict new cases on nearby locations and detect real important features. Visualized the feature importance to assist people understanding the transmission rate of Covid-19.</p>
-      </li>
-    </ul>
-  </section>
-
-  <section id="publications">
-    <h2>Publications</h2>
-    <ul>
-      <li>
-        <h3><a href="https://rdcu.be/c8ePY" target="_blank">Functional Random Forests for Curve Response</a></h3>
-        <p><em>Scientific Reports, Dec 17, 2021</em></p>
-        <p>This publication introduces a novel functional random forests (FunFor) approach to model functional data response that is densely and regularly measured. The FunFor approach predicts curve responses for new observations and selects important variables from a large set of scalar predictors. It inherits the efficiency of traditional random forests in detecting complex relationships, including nonlinear and high-order interactions, without imposing parametric and distributional assumptions. The excellent performance of the FunFor approach is demonstrated in eight simulation settings and one real-data analysis. The FunFor approach has great potential for widespread application in various fields due to its minimal requirement on tuning parameters and its distribution-free and model-free nature. An R package named 'FunFor' implementing the FunFor approach is available at GitHub.</p>
-      </li>
-    </ul>
-  </section>
-
-  <section id="organizations">
-  <h2>Organizations</h2>
-  <ul>
-    <li>
-      <h3>Phi Beta Kappa</h3>
-      <p><em>Contributing Member · Dec 2020 - Present</em></p>
-    </li>
-    <li>
-      <h3>Mathematical Problem-solving Group</h3>
-      <p><em>Founding member</em></p>
-      <p>Associated with Binghamton University</p>
-      <p><a href="http://people.math.binghamton.edu/borisov/Putnam/ProblemSolving.html" target="_blank">Learn more about the Mathematical Problem-solving Group</a></p>
-    </li>
-  </ul>
-</section>
-
-  
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>If you'd like to get in touch, feel free to email me at <a href="mailto:yl4829@columbia.edu">yl4829@columbia.edu</a> or connect with me on <a href="https://www.linkedin.com/in/yehengliang/" target="_blank">LinkedIn</a>.</p>
-  </section>
-
-  
-<footer>
-    <p>&copy; 2023 Yeheng Liang. All rights reserved.</p>
-  </footer>
-</body>
-</html>
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+index 0bd08b5e88309ece239adf7dcffe961aa82647ef..49176d1761ec8635c32682178010ab7b9b7d6e1d 100644
+--- a/index.html
++++ b/index.html
+@@ -1,94 +1,123 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Yeheng Liang - Portfolio</title>
+   <link rel="stylesheet" href="styles.css">
+ </head>
+ <body>
+   <header>
+     <nav>
+       <ul>
+         <li><a href="#home">Home</a></li>
+         <li><a href="#about">About</a></li>
++        <li><a href="#experience">Experience</a></li>
++        <li><a href="#education">Education</a></li>
+         <li><a href="#projects">Projects</a></li>
+         <li><a href="#publications">Publications</a></li>
+-        <li><a href="#publications">Organizations</a></li>
++        <li><a href="#organizations">Organizations</a></li>
++        <li><a href="#game">Stats Game</a></li>
+         <li><a href="#contact">Contact</a></li>
+       </ul>
+     </nav>
+   </header>
+ 
+   <section id="home">
+     <h1>Welcome to My Portfolio</h1>
+     <p>Hi, I'm Yeheng Liang and this is my personal website.</p>
+   </section>
+ 
+   <section id="about">
+     <h2>About Me</h2>
+     <p>I am an experienced Quantitative Analyst with a Master of Arts in Statistics, specialized in Data Science and Statistical Finance from Columbia University. As a Quantitative Analyst at RVI Group, I build and maintain models to support Passenger Vehicle’s residual value risk analysis, conduct research on topics related to passenger vehicles, such as BEV battery leasing and battery RV, and assist in recalibration of residual value forecast and lease return rate forecast models. I am highly analytical with a strong educational background in statistics, finance, and economics, and passionate about utilizing data-driven approaches to solve complex problems.</p>
+     
+     <h3>Skill Set</h3>
+     <ul>
+       <li>Statistics: high-dimensional, “big data” modeling, machine/deep learning, statistical computing</li>
+       <li>Quantitative finance: econometrics, general cash flows, portfolios, and asset liability management</li>
+       <li>Language: R, Python, SQL, MATLAB, EViews, LaTeX</li>
+       <li>English, Chinese</li>
+     </ul>
+   </section>
+ 
++  <section id="experience">
++    <h2>Experience</h2>
++    <h3>Quantitative Analyst, RVI Group</h3>
++    <p>Build and maintain models to support passenger vehicle residual value risk analysis, research emerging topics such as BEV battery leasing, and assist in recalibrating forecast models.</p>
++  </section>
++
++  <section id="education">
++    <h2>Education</h2>
++    <ul>
++      <li>Master of Arts in Statistics (Data Science and Statistical Finance), Columbia University</li>
++      <li>Bachelor's studies, Binghamton University</li>
++    </ul>
++  </section>
++
+   
+   <section id="projects">
+     <h2>Projects</h2>
+     <ul>
+       <li>
+         <h3>Genetic Testing for Common Tumors</h3>
+         <p>Developed a machine learning pipeline with logistic regression, elastic net, and random forest classifiers to detect real genetic features and their linkage between tumors. Preprocessed data for binary classification and led the team in dividing work and connecting the results.</p>
+       </li>
+       <li>
+         <h3>South Korea Covid-19 Cases Prediction and Variable Importance Analysis</h3>
+         <p>Performed data preprocessing on various tables of 180 days SK Covid cases information, weather, policy, and location. Designed models by different model checking aspect and suggestion to obtain normal residuals for inference. Developed a ML-pipeline with Random Forest, Elastic Net, SVM Regression and LR to predict new cases on nearby locations and detect real important features. Visualized the feature importance to assist people understanding the transmission rate of Covid-19.</p>
+       </li>
+     </ul>
+   </section>
+ 
+   <section id="publications">
+     <h2>Publications</h2>
+     <ul>
+       <li>
+         <h3><a href="https://rdcu.be/c8ePY" target="_blank">Functional Random Forests for Curve Response</a></h3>
+         <p><em>Scientific Reports, Dec 17, 2021</em></p>
+         <p>This publication introduces a novel functional random forests (FunFor) approach to model functional data response that is densely and regularly measured. The FunFor approach predicts curve responses for new observations and selects important variables from a large set of scalar predictors. It inherits the efficiency of traditional random forests in detecting complex relationships, including nonlinear and high-order interactions, without imposing parametric and distributional assumptions. The excellent performance of the FunFor approach is demonstrated in eight simulation settings and one real-data analysis. The FunFor approach has great potential for widespread application in various fields due to its minimal requirement on tuning parameters and its distribution-free and model-free nature. An R package named 'FunFor' implementing the FunFor approach is available at GitHub.</p>
+       </li>
+     </ul>
+   </section>
+ 
+   <section id="organizations">
+   <h2>Organizations</h2>
+   <ul>
+     <li>
+       <h3>Phi Beta Kappa</h3>
+       <p><em>Contributing Member · Dec 2020 - Present</em></p>
+     </li>
+     <li>
+       <h3>Mathematical Problem-solving Group</h3>
+       <p><em>Founding member</em></p>
+       <p>Associated with Binghamton University</p>
+       <p><a href="http://people.math.binghamton.edu/borisov/Putnam/ProblemSolving.html" target="_blank">Learn more about the Mathematical Problem-solving Group</a></p>
+     </li>
+   </ul>
+ </section>
+ 
+-  
++
++  <section id="game">
++    <h2>Guess the Mean</h2>
++    <p>We generate ten random numbers between 0 and 100. Can you guess their mean?</p>
++    <div id="numbers" class="numbers-display"></div>
++    <input type="number" id="guess" placeholder="Your guess">
++    <button id="checkGuess">Check Guess</button>
++    <button id="newGame">New Numbers</button>
++    <p id="result"></p>
++  </section>
++
+   <section id="contact">
+     <h2>Contact</h2>
+     <p>If you'd like to get in touch, feel free to email me at <a href="mailto:yl4829@columbia.edu">yl4829@columbia.edu</a> or connect with me on <a href="https://www.linkedin.com/in/yehengliang/" target="_blank">LinkedIn</a>.</p>
+   </section>
+ 
+   
+ <footer>
+-    <p>&copy; 2023 Yeheng Liang. All rights reserved.</p>
++    <p>&copy; 2025 Yeheng Liang. All rights reserved.</p>
+   </footer>
++
++  <script src="game.js"></script>
+ </body>
+ </html>
+ 
+EOF
+)
