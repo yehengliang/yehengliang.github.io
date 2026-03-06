@@ -3,183 +3,333 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yeheng Liang - Portfolio</title>
+  <title>Yeheng Liang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#publications">Publications</a></li>
-        <li><a href="#honors">Honors</a></li>
-        <li><a href="#organizations">Organizations</a></li>
-        <li><a href="#game">Stats Game</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="#home" class="logo">YL</a>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#honors">Honors</a></li>
+          <li><a href="#organizations">Organizations</a></li>
+          <li><a href="#game">Stats Game</a></li>
+          <li><a href="#contact" class="btn-nav">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <section id="home">
-    <h1>Yeheng Liang</h1>
-    <p class="subtitle">Manager, Quantitative Analysis @ RVI Group</p>
-    <p>Welcome to my personal portfolio. I specialize in quantitative analysis, statistical modeling, and machine learning applied to financial risk.</p>
-  </section>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I am a Manager of Quantitative Analysis at RVI Group with a Master of Arts in Statistics (Data Science and Statistical Finance) from Columbia University and a Bachelor of Science in Mathematics-Actuarial Science from Binghamton University. I am highly analytical with a strong background in statistics, finance, and economics, passionate about utilizing data-driven approaches to solve complex problems.</p>
-
-    <h3>Skill Set</h3>
-    <ul>
-      <li><strong>Statistics:</strong> High-dimensional and "big data" modeling, machine/deep learning, statistical computing</li>
-      <li><strong>Quantitative Finance:</strong> Econometrics, general cash flows, portfolios, and asset liability management</li>
-      <li><strong>Risk Management:</strong> Risk models, surveillance, market risk</li>
-      <li><strong>Languages:</strong> R, Python, SQL, MATLAB, EViews, LaTeX</li>
-      <li><strong>Tools:</strong> Microsoft Power BI</li>
-      <li><strong>Languages:</strong> Cantonese (native/bilingual), English (professional), Mandarin</li>
-    </ul>
-  </section>
-
-  <section id="experience">
-    <h2>Experience</h2>
-
-    <div class="experience-item">
-      <h3>RVI Group &mdash; Stamford, Connecticut</h3>
-      <p class="exp-meta">3 yrs 11 mos</p>
-
-      <div class="role">
-        <h4>Manager, Quantitative Analysis</h4>
-        <p class="exp-meta">Full-time &middot; Aug 2025 &ndash; Present</p>
-      </div>
-
-      <div class="role">
-        <h4>Sr. Associate, Quantitative Analysis</h4>
-        <p class="exp-meta">Full-time &middot; Mar 2024 &ndash; Aug 2025 &middot; 1 yr 6 mos</p>
-        <ul>
-          <li><strong>Pricing:</strong> PV China Policies</li>
-          <li><strong>Modeling:</strong> Distribution, ML, TS and Econometric Models</li>
-          <li><strong>Risk Management:</strong> Risk Models, Surveillances</li>
-          <li><strong>Research:</strong> BEV TOC, Battery Leasing and NEV Penetration</li>
-          <li><strong>Business Development:</strong> PV market updates</li>
-        </ul>
-      </div>
-
-      <div class="role">
-        <h4>Associate, Quantitative Analysis</h4>
-        <p class="exp-meta">Full-time &middot; Jan 2023 &ndash; Feb 2024 &middot; 1 yr 2 mos</p>
-        <p>Built and maintained models to support Passenger Vehicle residual value risk analysis, conducted research on topics related to passenger vehicles (BEV battery leasing, battery RV), and assisted in recalibration of residual value forecast and lease return rate forecast models.</p>
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Hello, I'm</p>
+      <h1 class="hero-name">Yeheng Liang</h1>
+      <p class="hero-title">Manager, Quantitative Analysis</p>
+      <p class="hero-sub">Quantitative finance &middot; Statistical modeling &middot; Machine learning</p>
+      <div class="hero-cta">
+        <a href="#experience" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-secondary">Get in Touch</a>
       </div>
     </div>
+    <div class="hero-scroll-hint">&#8595;</div>
+  </section>
 
-    <div class="experience-item">
-      <h3>Binghamton University &mdash; Part-time</h3>
-      <p class="exp-meta">2 yrs 7 mos</p>
-
-      <div class="role">
-        <h4>Graduate Teaching Assistant</h4>
-        <p class="exp-meta">Aug 2021 &ndash; May 2022 &middot; 10 mos &middot; Binghamton, New York</p>
-        <ul>
-          <li>MATH 531 Regression I (Fall 2021)</li>
-          <li>MATH 455 Introduction to Regression (Fall 2021, Spring 2022)</li>
-        </ul>
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I am a Manager of Quantitative Analysis at RVI Group, specializing in residual value risk modeling for passenger vehicles. I hold an MA in Statistics (Data Science and Statistical Finance) from Columbia University, where I was recently invited back as a practitioner speaker for the MA Statistics program seminar.</p>
+          <p>My work spans pricing, distribution modeling, time series econometrics, machine learning, risk surveillance, and research into emerging topics like BEV battery leasing and NEV penetration.</p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <span class="skill-icon">&#x1F4CA;</span>
+            <h4>Statistics</h4>
+            <p>High-dimensional modeling, machine &amp; deep learning, statistical computing</p>
+          </div>
+          <div class="skill-card">
+            <span class="skill-icon">&#x1F4B9;</span>
+            <h4>Quant Finance</h4>
+            <p>Econometrics, cash flows, portfolios, asset liability management</p>
+          </div>
+          <div class="skill-card">
+            <span class="skill-icon">&#x1F6E1;&#xFE0F;</span>
+            <h4>Risk Management</h4>
+            <p>Risk models, market risk, surveillance systems</p>
+          </div>
+          <div class="skill-card">
+            <span class="skill-icon">&#x1F4BB;</span>
+            <h4>Languages</h4>
+            <p>R, Python, SQL, MATLAB, EViews, LaTeX, Power BI</p>
+          </div>
+        </div>
       </div>
-
-      <div class="role">
-        <h4>Machine Learning Algorithms Researcher</h4>
-        <p class="exp-meta">Dec 2020 &ndash; Jul 2021 &middot; 8 mos &middot; Binghamton, New York</p>
-        <p>Topic: Functional Random Forests for Curve Response [Published in Scientific Reports]</p>
-      </div>
-
-      <div class="role">
-        <h4>Undergraduate Teaching Assistant</h4>
-        <p class="exp-meta">Nov 2019 &ndash; May 2021 &middot; 1 yr 7 mos &middot; New York</p>
-        <ul>
-          <li>MATH 448 Mathematical Statistics (Spring 2020, Fall 2020)</li>
-          <li>MATH 329 Intro to Scientific Computing (Spring 2020, Fall 2020, Spring 2021)</li>
-        </ul>
+      <div class="tags-row">
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Risk Management</span>
+        <span class="tag">R</span>
+        <span class="tag">Python</span>
+        <span class="tag">SQL</span>
+        <span class="tag">MATLAB</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">EViews</span>
+        <span class="tag">LaTeX</span>
+        <span class="tag">Cantonese</span>
+        <span class="tag">English</span>
+        <span class="tag">Mandarin</span>
       </div>
     </div>
   </section>
 
-  <section id="education">
-    <h2>Education</h2>
-    <ul class="education-list">
-      <li>
-        <h3>Columbia University</h3>
-        <p>Master of Arts &ndash; MA, Statistics (Data Science and Statistical Finance)</p>
-        <p class="exp-meta">2021 &ndash; 2023</p>
-      </li>
-      <li>
-        <h3>Binghamton University</h3>
-        <p>Bachelor of Science &ndash; BS, Mathematics-Actuarial Science</p>
-        <p class="exp-meta">2017 &ndash; 2021</p>
-      </li>
-    </ul>
+  <!-- Experience -->
+  <section id="experience" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3>Manager, Quantitative Analysis</h3>
+                <p class="company">RVI Group &middot; Stamford, CT</p>
+              </div>
+              <span class="timeline-date">Aug 2025 &ndash; Present</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3>Sr. Associate, Quantitative Analysis</h3>
+                <p class="company">RVI Group &middot; Stamford, CT</p>
+              </div>
+              <span class="timeline-date">Mar 2024 &ndash; Aug 2025</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li><strong>Pricing:</strong> PV China Policies</li>
+              <li><strong>Modeling:</strong> Distribution, ML, time series, and econometric models</li>
+              <li><strong>Risk Management:</strong> Risk models, surveillances</li>
+              <li><strong>Research:</strong> BEV TOC, battery leasing, NEV penetration</li>
+              <li><strong>Business Development:</strong> PV market updates</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag-sm">Market Risk</span>
+              <span class="tag-sm">Machine Learning</span>
+              <span class="tag-sm">Econometrics</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3>Associate, Quantitative Analysis</h3>
+                <p class="company">RVI Group &middot; Stamford, CT</p>
+              </div>
+              <span class="timeline-date">Jan 2023 &ndash; Feb 2024</span>
+            </div>
+            <p>Built and maintained models supporting passenger vehicle residual value risk analysis. Assisted in recalibration of residual value forecast and lease return rate forecast models.</p>
+            <div class="tag-row">
+              <span class="tag-sm">Machine Learning</span>
+              <span class="tag-sm">Market Risk</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3>Graduate Teaching Assistant</h3>
+                <p class="company">Binghamton University &middot; Binghamton, NY</p>
+              </div>
+              <span class="timeline-date">Aug 2021 &ndash; May 2022</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>MATH 531 Regression I (Fall 2021)</li>
+              <li>MATH 455 Introduction to Regression (Fall 2021, Spring 2022)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3>Machine Learning Algorithms Researcher</h3>
+                <p class="company">Binghamton University &middot; Binghamton, NY</p>
+              </div>
+              <span class="timeline-date">Dec 2020 &ndash; Jul 2021</span>
+            </div>
+            <p>Researched and published Functional Random Forests for Curve Response in <em>Scientific Reports</em>.</p>
+            <div class="tag-row">
+              <span class="tag-sm">Statistical Modeling</span>
+              <span class="tag-sm">Simulations</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div>
+                <h3>Undergraduate Teaching Assistant</h3>
+                <p class="company">Binghamton University &middot; New York</p>
+              </div>
+              <span class="timeline-date">Nov 2019 &ndash; May 2021</span>
+            </div>
+            <ul class="timeline-bullets">
+              <li>MATH 448 Mathematical Statistics (Spring 2020, Fall 2020)</li>
+              <li>MATH 329 Intro to Scientific Computing (Spring 2020, Fall 2020, Spring 2021)</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </section>
 
-  <section id="publications">
-    <h2>Publications</h2>
-    <ul>
-      <li>
+  <!-- Education -->
+  <section id="education" class="section">
+    <div class="container">
+      <h2 class="section-title">Education</h2>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-logo">CU</div>
+          <div>
+            <h3>Columbia University</h3>
+            <p>Master of Arts &ndash; Statistics</p>
+            <p class="edu-focus">Data Science &amp; Statistical Finance</p>
+            <span class="timeline-date">2021 &ndash; 2023</span>
+          </div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-logo">BU</div>
+          <div>
+            <h3>Binghamton University</h3>
+            <p>Bachelor of Science &ndash; Mathematics-Actuarial Science</p>
+            <span class="timeline-date">2017 &ndash; 2021</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section id="publications" class="section">
+    <div class="container">
+      <h2 class="section-title">Publications</h2>
+      <div class="pub-card">
+        <div class="pub-meta">Scientific Reports &middot; Dec 17, 2021</div>
         <h3><a href="https://rdcu.be/c8ePY" target="_blank">Functional Random Forests for Curve Response</a></h3>
-        <p><em>Scientific Reports &middot; Dec 17, 2021</em></p>
-        <p>Introduces a novel functional random forests (FunFor) approach to model functional data response that is densely and regularly measured. The FunFor approach predicts curve responses for new observations and selects important variables from a large set of scalar predictors. It inherits the efficiency of traditional random forests in detecting complex relationships, including nonlinear and high-order interactions, without imposing parametric and distributional assumptions. An R package named 'FunFor' implementing the approach is available on GitHub.</p>
-      </li>
-    </ul>
+        <p>Introduces a novel functional random forests (FunFor) approach to model functional data response that is densely and regularly measured. FunFor predicts curve responses for new observations and selects important variables from large sets of scalar predictors. It detects complex nonlinear and high-order interactions without parametric or distributional assumptions, and consistently outperformed existing methods across eight simulation settings and one real-data analysis. An R package is available on GitHub.</p>
+        <div class="tag-row">
+          <span class="tag-sm">Functional Data Analysis</span>
+          <span class="tag-sm">Random Forests</span>
+          <span class="tag-sm">R Package</span>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="honors">
-    <h2>Honors &amp; Awards</h2>
-    <ul>
-      <li>
-        <strong>Miguel Arcones Memorial Award</strong>
-        <br>Issued by Binghamton University &middot; May 2021
-      </li>
-      <li>
-        <strong>Class of 1989 Scholarship</strong>
-        <br>Issued by Binghamton University &middot; Aug 2020
-      </li>
-    </ul>
+  <!-- Honors -->
+  <section id="honors" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Honors &amp; Awards</h2>
+      <div class="honors-grid">
+        <div class="honor-card">
+          <span class="honor-icon">&#x1F3C6;</span>
+          <h4>Miguel Arcones Memorial Award</h4>
+          <p>Binghamton University &middot; May 2021</p>
+        </div>
+        <div class="honor-card">
+          <span class="honor-icon">&#x1F393;</span>
+          <h4>Class of 1989 Scholarship</h4>
+          <p>Binghamton University &middot; Aug 2020</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="organizations">
-    <h2>Organizations</h2>
-    <ul>
-      <li>
-        <h3>Phi Beta Kappa</h3>
-        <p><em>Contributing Member &middot; Dec 2020 &ndash; Present</em></p>
-        <p>Associated with Binghamton University</p>
-      </li>
-      <li>
-        <h3>Mathematical Problem-solving Group</h3>
-        <p><em>Founding Member</em></p>
-        <p>Associated with Binghamton University</p>
-        <ul>
-          <li>Discuss various problems from previous Putnam competitions and AIME competitions.</li>
-          <li>Prepare new problems and understand their solution before discussion.</li>
-        </ul>
-        <p><a href="http://people.math.binghamton.edu/borisov/Putnam/ProblemSolving.html" target="_blank">Learn more about the Mathematical Problem-solving Group</a></p>
-      </li>
-    </ul>
+  <!-- Organizations -->
+  <section id="organizations" class="section">
+    <div class="container">
+      <h2 class="section-title">Organizations</h2>
+      <div class="org-grid">
+        <div class="org-card">
+          <h3>Phi Beta Kappa</h3>
+          <p class="org-role">Contributing Member &middot; Dec 2020 &ndash; Present</p>
+          <p>Associated with Binghamton University</p>
+        </div>
+        <div class="org-card">
+          <h3>Mathematical Problem-solving Group</h3>
+          <p class="org-role">Founding Member</p>
+          <p>Associated with Binghamton University</p>
+          <ul>
+            <li>Discuss problems from Putnam and AIME competitions</li>
+            <li>Prepare and solve problems before group discussion</li>
+          </ul>
+          <a href="http://people.math.binghamton.edu/borisov/Putnam/ProblemSolving.html" target="_blank" class="link-arrow">Learn more &#x2192;</a>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="game">
-    <h2>Guess the Mean</h2>
-    <p>We generate ten random numbers between 0 and 100. Can you guess their mean?</p>
-    <div id="numbers" class="numbers-display"></div>
-    <input type="number" id="guess" placeholder="Your guess">
-    <button id="checkGuess">Check Guess</button>
-    <button id="newGame">New Numbers</button>
-    <p id="result"></p>
+  <!-- Stats Game -->
+  <section id="game" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">Stats Game</h2>
+      <div class="game-card">
+        <p>Ten random numbers between 0 and 100 are generated. Can you guess their mean?</p>
+        <div id="numbers" class="numbers-display"></div>
+        <div class="game-controls">
+          <input type="number" id="guess" placeholder="Your guess (e.g. 52.5)">
+          <button id="checkGuess">Check</button>
+          <button id="newGame" class="btn-outline">New Numbers</button>
+        </div>
+        <p id="result" class="game-result"></p>
+      </div>
+    </div>
   </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>If you'd like to get in touch, feel free to email me at <a href="mailto:yl4829@columbia.edu">yl4829@columbia.edu</a> or connect with me on <a href="https://www.linkedin.com/in/yehengliang/" target="_blank">LinkedIn</a>.</p>
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <div class="container contact-container">
+      <h2 class="section-title">Get in Touch</h2>
+      <p>Feel free to reach out — I'm always happy to connect.</p>
+      <div class="contact-links">
+        <a href="mailto:yl4829@columbia.edu" class="contact-link">
+          <span>&#x2709;&#xFE0F;</span> yl4829@columbia.edu
+        </a>
+        <a href="https://www.linkedin.com/in/yehengliang/" target="_blank" class="contact-link">
+          <span>&#x1F517;</span> linkedin.com/in/yehengliang
+        </a>
+      </div>
+    </div>
   </section>
 
   <footer>
