@@ -54,6 +54,52 @@ h1, h2, h3 {
   line-height: 1.2;
 }
 
+.subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: -0.5rem;
+}
+
+.exp-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0.2rem 0 0.5rem;
+}
+
+.experience-item {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.experience-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.role {
+  margin: 1rem 0 1rem 1rem;
+  padding-left: 1rem;
+  border-left: 3px solid #c9d6ff;
+}
+
+.role h4 {
+  margin: 0 0 0.2rem;
+}
+
+.education-list {
+  list-style: none;
+  padding: 0;
+}
+
+.education-list li {
+  margin-bottom: 1.5rem;
+}
+
+.education-list h3 {
+  margin-bottom: 0.2rem;
+}
+
 .numbers-display {
   font-size: 1.2rem;
   margin-bottom: 1rem;
