@@ -1,354 +1,602 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yeheng Liang</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yeheng Liang</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: oklch(11% 0.015 260);
+  --bg2: oklch(14% 0.018 260);
+  --bg3: oklch(17% 0.02 260);
+  --surface: oklch(16% 0.02 255);
+  --border: oklch(25% 0.025 260);
+  --text: oklch(88% 0.01 80);
+  --muted: oklch(55% 0.015 260);
+  --gold: oklch(76% 0.155 82);
+  --gold2: oklch(65% 0.145 82);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --fd: 'Cormorant Garamond', Georgia, serif;
+  --fb: 'Space Grotesk', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--fb); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+::selection { background: var(--gold); color: var(--bg); }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold2); border-radius: 2px; }
+
+#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.5; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: linear-gradient(to bottom, oklch(11% 0.015 260 / 0.95), transparent);
+  backdrop-filter: blur(8px);
+  transition: background 0.4s, border-color 0.4s;
+  border-bottom: 1px solid transparent;
+}
+nav.scrolled { background: oklch(11% 0.015 260 / 0.92); border-bottom-color: var(--border); }
+.nav-logo { font-family: var(--fd); font-size: 1.5rem; font-weight: 600; color: var(--gold); text-decoration: none; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+
+#home {
+  position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  z-index: 1; padding: 0 3rem; overflow: hidden;
+}
+.hero-inner { max-width: 1100px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.hero-greeting { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.3s var(--ease-out) forwards; }
+.hero-name { font-family: var(--fd); font-size: clamp(3.5rem, 7vw, 6.5rem); font-weight: 300; line-height: 1.05; color: var(--text); opacity: 0; transform: translateY(30px); animation: fadeUp 0.9s 0.5s var(--ease-out) forwards; }
+.hero-name em { font-style: italic; color: var(--gold); }
+.hero-role { font-size: 1rem; color: var(--muted); margin-top: 1.2rem; line-height: 1.7; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.7s var(--ease-out) forwards; }
+.hero-role strong { color: var(--text); font-weight: 500; }
+.hero-ctas { display: flex; gap: 1rem; margin-top: 2.5rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.9s var(--ease-out) forwards; }
+.btn-primary { padding: 0.75rem 2rem; background: var(--gold); color: var(--bg); font-family: var(--fb); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); transition: opacity 0.2s, transform 0.2s; }
+.btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+.btn-outline { padding: 0.75rem 2rem; background: transparent; color: var(--text); font-family: var(--fb); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--border); cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+.hero-data-panel { display: flex; flex-direction: column; gap: 1.2rem; opacity: 0; transform: translateX(30px); animation: fadeLeft 0.9s 0.9s var(--ease-out) forwards; }
+.data-row { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.5rem; border: 1px solid var(--border); background: var(--surface); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+.data-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); }
+.data-row:hover { border-color: var(--gold); transform: translateX(4px); }
+.data-row-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.data-row-value { font-family: var(--fd); font-size: 1.8rem; font-weight: 300; color: var(--gold); line-height: 1; }
+.data-row-sub { font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem; }
+
+.scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0; animation: fadeUp 1s 1.4s var(--ease-out) forwards; }
+.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s 1.4s infinite; }
+
+section { position: relative; z-index: 1; padding: 7rem 3rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+.section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+.section-title { font-family: var(--fd); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; margin-bottom: 3rem; }
+.section-title em { font-style: italic; color: var(--gold); }
+
+#about { background: var(--bg2); }
+.about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: start; }
+.about-text p { font-size: 1.05rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.5rem; }
+.about-text p strong { color: var(--text); font-weight: 500; }
+.about-skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 2.5rem; }
+.skill-cell { background: var(--bg2); padding: 1.5rem; transition: background 0.3s; }
+.skill-cell:hover { background: var(--bg3); }
+.skill-cell-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+.skill-cell-title { font-size: 0.8rem; font-weight: 600; color: var(--text); letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+.skill-cell-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.6; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 0.9rem; border: 1px solid var(--border); color: var(--muted); transition: border-color 0.2s, color 0.2s; cursor: default; }
+.tag:hover { border-color: var(--gold); color: var(--gold); }
+
+#experience { background: var(--bg); }
+.timeline { position: relative; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--gold), var(--border) 70%, transparent); }
+.tl-item { padding-left: 2.5rem; margin-bottom: 3.5rem; position: relative; }
+.tl-dot { position: absolute; left: -5px; top: 0.4rem; width: 11px; height: 11px; border: 2px solid var(--gold); background: var(--bg); transform: rotate(45deg); }
+.tl-dot.active { background: var(--gold); }
+.tl-date { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+.tl-company { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.3rem; }
+.tl-role { font-family: var(--fd); font-size: 1.6rem; font-weight: 300; color: var(--text); margin-bottom: 0.8rem; line-height: 1.2; }
+.tl-body { font-size: 0.85rem; color: var(--muted); line-height: 1.8; }
+.tl-body li { margin-bottom: 0.3rem; }
+.tl-body ul { padding-left: 1.2rem; }
+.tl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+.t-tag { font-size: 0.65rem; padding: 0.25rem 0.7rem; background: var(--bg3); border: 1px solid var(--border); color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+#education { background: var(--bg2); }
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.edu-card { padding: 2.5rem; border: 1px solid var(--border); background: var(--surface); position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+.edu-card::after { content: ''; position: absolute; right: -30px; bottom: -30px; width: 120px; height: 120px; border-radius: 50%; border: 40px solid var(--border); opacity: 0.3; transition: opacity 0.3s, transform 0.3s; }
+.edu-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+.edu-card:hover::after { opacity: 0.5; transform: scale(1.1); }
+.edu-initials { font-family: var(--fd); font-size: 3.5rem; font-weight: 300; color: var(--gold); opacity: 0.4; margin-bottom: 1rem; line-height: 1; }
+.edu-school { font-family: var(--fd); font-size: 1.5rem; font-weight: 300; margin-bottom: 0.4rem; }
+.edu-degree { font-size: 0.8rem; font-weight: 500; color: var(--gold); margin-bottom: 0.3rem; }
+.edu-major { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+.edu-years { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+
+#publications { background: var(--bg); }
+.pub-card { border: 1px solid var(--border); padding: 2.5rem 3rem; position: relative; overflow: hidden; transition: border-color 0.3s; background: var(--surface); }
+.pub-card:hover { border-color: var(--gold); }
+.pub-venue { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.pub-title { font-family: var(--fd); font-size: 2rem; font-weight: 300; line-height: 1.2; margin-bottom: 1.2rem; }
+.pub-title a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+.pub-title a:hover { color: var(--gold); }
+.pub-abstract { font-size: 0.85rem; color: var(--muted); line-height: 1.9; }
+.pub-number { position: absolute; right: 2.5rem; top: 2rem; font-family: var(--fd); font-size: 6rem; font-weight: 300; color: var(--border); line-height: 1; pointer-events: none; }
+
+#honors { background: var(--bg2); }
+.honors-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.honor-card { padding: 2rem; border: 1px solid var(--border); display: flex; gap: 1.2rem; align-items: flex-start; transition: border-color 0.3s, transform 0.3s; }
+.honor-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+.honor-icon { font-size: 1.8rem; width: 3rem; text-align: center; flex-shrink: 0; }
+.honor-title { font-family: var(--fd); font-size: 1.3rem; font-weight: 300; margin-bottom: 0.3rem; }
+.honor-source { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.2rem; }
+.honor-date { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+
+#organizations { background: var(--bg); }
+.org-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.org-card { display: flex; gap: 2rem; padding: 2rem 2.5rem; border: 1px solid var(--border); background: var(--surface); transition: border-color 0.3s; }
+.org-card:hover { border-color: var(--gold); }
+.org-name { font-family: var(--fd); font-size: 1.5rem; font-weight: 300; margin-bottom: 0.3rem; }
+.org-role { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+.org-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+.org-meta { font-size: 0.7rem; color: var(--muted); margin-top: 0.8rem; }
+.org-link { font-size: 0.72rem; color: var(--gold); text-decoration: none; transition: opacity 0.2s; }
+.org-link:hover { opacity: 0.7; }
+
+#game { background: var(--bg2); }
+.game-container { max-width: 700px; margin: 0 auto; text-align: center; }
+.game-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 3rem; line-height: 1.8; }
+.numbers-display { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-bottom: 2.5rem; }
+.num-chip { font-family: var(--fd); font-size: 2rem; font-weight: 300; padding: 0.5rem 1.2rem; border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: border-color 0.3s; animation: chipPop 0.4s var(--ease-out) backwards; }
+.num-chip.hi { border-color: var(--gold); color: var(--gold); }
+.game-input-row { display: flex; gap: 1rem; justify-content: center; align-items: center; margin-bottom: 2rem; }
+.game-input { font-family: var(--fd); font-size: 1.8rem; font-weight: 300; width: 160px; padding: 0.6rem 1rem; text-align: center; background: var(--surface); border: 1px solid var(--border); color: var(--text); outline: none; transition: border-color 0.3s; }
+.game-input:focus { border-color: var(--gold); }
+.game-result { min-height: 3rem; font-family: var(--fd); font-size: 1.5rem; font-weight: 300; transition: opacity 0.3s; }
+.game-result.correct { color: oklch(72% 0.16 142); }
+.game-result.close    { color: oklch(78% 0.16 65); }
+.game-result.off      { color: oklch(65% 0.16 25); }
+
+#contact { background: var(--bg); min-height: 50vh; display: flex; align-items: center; }
+#contact .section-inner { width: 100%; }
+.contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.contact-tagline { font-family: var(--fd); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem; }
+.contact-tagline em { font-style: italic; color: var(--gold); }
+.contact-subtext { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+.contact-links { display: flex; flex-direction: column; gap: 1.2rem; }
+.contact-link { display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem 2rem; border: 1px solid var(--border); text-decoration: none; color: var(--text); transition: border-color 0.3s, transform 0.3s; }
+.contact-link:hover { border-color: var(--gold); transform: translateX(6px); }
+.contact-link-icon { font-size: 1.3rem; }
+.contact-link-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+.contact-link-value { font-size: 0.9rem; font-weight: 500; }
+
+footer { position: relative; z-index: 1; padding: 2rem 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; color: var(--muted); }
+footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeLeft { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+@keyframes chipPop { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+#tweaks-panel { display: none; position: fixed; bottom: 2rem; right: 2rem; z-index: 999; background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; min-width: 240px; font-family: var(--fb); }
+#tweaks-panel label { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1rem; font-size: 0.78rem; color: var(--muted); }
+#tweaks-panel input[type=color] { width: 100%; height: 32px; border: 1px solid var(--border); background: var(--bg); cursor: pointer; }
+#tweaks-panel .tw-title { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  section { padding: 5rem 1.5rem; }
+  .hero-inner, .about-grid, .edu-grid, .honors-grid, .contact-inner { grid-template-columns: 1fr; }
+  .hero-data-panel { display: none; }
+  .pub-number { display: none; }
+}
+</style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <header class="navbar">
-    <div class="navbar-inner">
-      <a href="#home" class="logo">YL</a>
-      <nav>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#education">Education</a></li>
-          <li><a href="#publications">Publications</a></li>
-          <li><a href="#honors">Honors</a></li>
-          <li><a href="#organizations">Organizations</a></li>
-          <li><a href="#game">Stats Game</a></li>
-          <li><a href="#contact" class="btn-nav">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+<canvas id="canvas-bg"></canvas>
 
-  <!-- Hero -->
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <p class="hero-eyebrow">Hello, I'm</p>
-      <h1 class="hero-name">Yeheng Liang</h1>
-      <p class="hero-title">Sr. Manager, Quantitative Analysis</p>
-      <p class="hero-sub">Scientific computing &middot; Statistical modeling &middot; Machine learning</p>
-      <div class="hero-cta">
-        <a href="#experience" class="btn-primary">View My Work</a>
-        <a href="#contact" class="btn-secondary">Get in Touch</a>
+<nav id="nav">
+  <a class="nav-logo" href="#home">YL</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#honors">Honors</a></li>
+    <li><a href="#game">Stats Game</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="home">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-greeting">Quantitative Analysis &middot; Risk Modeling</p>
+      <h1 class="hero-name">Yeheng<br><em>Liang</em></h1>
+      <p class="hero-role"><strong>Sr. Manager, Quantitative Analysis</strong> at RVI Group<br>Scientific computing &middot; Statistical modeling &middot; Machine learning</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#experience">View My Work</a>
+        <a class="btn-outline" href="#contact">Get in Touch</a>
       </div>
     </div>
-    <div class="hero-scroll-hint">&#8595;</div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="section">
-    <div class="container">
-      <h2 class="section-title">About Me</h2>
-      <div class="about-grid">
-        <div class="about-text">
-          <p>I am a Sr. Manager of Quantitative Analysis at RVI Group, specializing in residual value risk modeling for passenger vehicles. I hold an MA in Statistics (Data Science and Statistical Finance) from Columbia University, where I was recently invited back as a practitioner speaker for the MA Statistics program seminar.</p>
-          <p>My work spans pricing, distribution modeling, time series econometrics, machine learning, risk surveillance, and research into emerging topics like BEV battery leasing and NEV penetration.</p>
-        </div>
-        <div class="skills-grid">
-          <div class="skill-card">
-            <span class="skill-icon">&#x1F4CA;</span>
-            <h4>Statistics</h4>
-            <p>High-dimensional modeling, machine &amp; deep learning, statistical computing</p>
-          </div>
-          <div class="skill-card">
-            <span class="skill-icon">&#x1F4B9;</span>
-            <h4>Quant Finance</h4>
-            <p>Econometrics, cash flows, portfolios, asset liability management</p>
-          </div>
-          <div class="skill-card">
-            <span class="skill-icon">&#x1F6E1;&#xFE0F;</span>
-            <h4>Risk Management</h4>
-            <p>Risk models, market risk, surveillance systems</p>
-          </div>
-          <div class="skill-card">
-            <span class="skill-icon">&#x1F4BB;</span>
-            <h4>Languages</h4>
-            <p>R, Python, SQL, MATLAB, EViews, LaTeX, Power BI</p>
-          </div>
-        </div>
+    <div class="hero-data-panel">
+      <div class="data-row">
+        <div style="flex:1"><div class="data-row-label">Current Company</div><div class="data-row-sub">RVI Group &middot; Stamford, CT</div></div>
+        <div class="data-row-value" style="font-size:1.1rem;line-height:1.2">G1001</div>
       </div>
-      <div class="tags-row">
-        <span class="tag">Machine Learning</span>
-        <span class="tag">Risk Management</span>
-        <span class="tag">R</span>
-        <span class="tag">Python</span>
-        <span class="tag">SQL</span>
-        <span class="tag">MATLAB</span>
-        <span class="tag">Power BI</span>
-        <span class="tag">EViews</span>
-        <span class="tag">LaTeX</span>
-        <span class="tag">Cantonese</span>
-        <span class="tag">English</span>
-        <span class="tag">Mandarin</span>
+      <div class="data-row">
+        <div style="flex:1"><div class="data-row-label">Graduate School</div><div class="data-row-sub">Columbia University &middot; MA Statistics</div></div>
+        <div class="data-row-value">CU</div>
+      </div>
+      <div class="data-row">
+        <div style="flex:1"><div class="data-row-label">Years of Experience</div><div class="data-row-sub">Residual value risk, ML, econometrics</div></div>
+        <div class="data-row-value" id="yoe-counter">0</div>
+      </div>
+      <div class="data-row">
+        <div style="flex:1"><div class="data-row-label">Publications</div><div class="data-row-sub">Scientific Reports &middot; Dec 2021</div></div>
+        <div class="data-row-value" style="font-size:1rem;line-height:1.3">Scientific<br>Reports</div>
       </div>
     </div>
-  </section>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
 
-  <!-- Experience -->
-  <section id="experience" class="section section-alt">
-    <div class="container">
-      <h2 class="section-title">Experience</h2>
-      <div class="timeline">
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <div>
-                <h3>Sr. Manager, Quantitative Analysis</h3>
-                <p class="company">RVI Group &middot; Stamford, CT</p>
-              </div>
-              <span class="timeline-date">Mar 2026 &ndash; Present</span>
-            </div>
-          </div>
+<section id="about">
+  <div class="section-inner">
+    <p class="section-label reveal">Profile</p>
+    <h2 class="section-title reveal">About <em>Me</em></h2>
+    <div class="about-grid">
+      <div>
+        <div class="about-text reveal">
+          <p>I am a <strong>Sr. Manager of Quantitative Analysis</strong> at RVI Group, specializing in residual value risk modeling for passenger vehicles. I hold an <strong>MA in Statistics</strong> (Data Science and Statistical Finance) from Columbia University, where I was recently invited back as a practitioner speaker for the MA Statistics program seminar.</p>
+          <p>My work spans pricing, distribution modeling, time series econometrics, machine learning, risk surveillance, and research into emerging topics like <strong>BEV battery leasing</strong> and <strong>NEV penetration</strong>.</p>
         </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <div>
-                <h3>Manager, Quantitative Analysis</h3>
-                <p class="company">RVI Group &middot; Stamford, CT</p>
-              </div>
-              <span class="timeline-date">Aug 2025 &ndash; Feb 2026</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <div>
-                <h3>Sr. Associate, Quantitative Analysis</h3>
-                <p class="company">RVI Group &middot; Stamford, CT</p>
-              </div>
-              <span class="timeline-date">Mar 2024 &ndash; Aug 2025</span>
-            </div>
-            <ul class="timeline-bullets">
-              <li><strong>Pricing:</strong> PV China Policies</li>
-              <li><strong>Modeling:</strong> Distribution, ML, time series, and econometric models</li>
-              <li><strong>Risk Management:</strong> Risk models, surveillances</li>
-              <li><strong>Research:</strong> BEV TOC, battery leasing, NEV penetration</li>
-              <li><strong>Business Development:</strong> PV market updates</li>
-            </ul>
-            <div class="tag-row">
-              <span class="tag-sm">Market Risk</span>
-              <span class="tag-sm">Machine Learning</span>
-              <span class="tag-sm">Econometrics</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <div>
-                <h3>Associate, Quantitative Analysis</h3>
-                <p class="company">RVI Group &middot; Stamford, CT</p>
-              </div>
-              <span class="timeline-date">Jan 2023 &ndash; Feb 2024</span>
-            </div>
-            <p>Built and maintained models supporting passenger vehicle residual value risk analysis. Assisted in recalibration of residual value forecast and lease return rate forecast models.</p>
-            <div class="tag-row">
-              <span class="tag-sm">Machine Learning</span>
-              <span class="tag-sm">Market Risk</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <div>
-                <h3>Graduate Teaching Assistant</h3>
-                <p class="company">Binghamton University &middot; Binghamton, NY</p>
-              </div>
-              <span class="timeline-date">Aug 2021 &ndash; May 2022</span>
-            </div>
-            <ul class="timeline-bullets">
-              <li>MATH 531 Regression I (Fall 2021)</li>
-              <li>MATH 455 Introduction to Regression (Fall 2021, Spring 2022)</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <div>
-                <h3>Machine Learning Algorithms Researcher</h3>
-                <p class="company">Binghamton University &middot; Binghamton, NY</p>
-              </div>
-              <span class="timeline-date">Dec 2020 &ndash; Jul 2021</span>
-            </div>
-            <p>Researched and published Functional Random Forests for Curve Response in <em>Scientific Reports</em>.</p>
-            <div class="tag-row">
-              <span class="tag-sm">Statistical Modeling</span>
-              <span class="tag-sm">Simulations</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-card">
-            <div class="timeline-header">
-              <div>
-                <h3>Undergraduate Teaching Assistant</h3>
-                <p class="company">Binghamton University &middot; New York</p>
-              </div>
-              <span class="timeline-date">Nov 2019 &ndash; May 2021</span>
-            </div>
-            <ul class="timeline-bullets">
-              <li>MATH 448 Mathematical Statistics (Spring 2020, Fall 2020)</li>
-              <li>MATH 329 Intro to Scientific Computing (Spring 2020, Fall 2020, Spring 2021)</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Education -->
-  <section id="education" class="section">
-    <div class="container">
-      <h2 class="section-title">Education</h2>
-      <div class="edu-grid">
-        <div class="edu-card">
-          <div class="edu-logo">CU</div>
-          <div>
-            <h3>Columbia University</h3>
-            <p>Master of Arts &ndash; Statistics</p>
-            <p class="edu-focus">Data Science &amp; Statistical Finance</p>
-            <span class="timeline-date">2021 &ndash; 2023</span>
-          </div>
-        </div>
-        <div class="edu-card">
-          <div class="edu-logo">BU</div>
-          <div>
-            <h3>Binghamton University</h3>
-            <p>Bachelor of Science &ndash; Mathematics-Actuarial Science</p>
-            <span class="timeline-date">2017 &ndash; 2021</span>
-          </div>
+        <div class="about-skills-grid reveal">
+          <div class="skill-cell"><div class="skill-cell-icon">📊</div><div class="skill-cell-title">Statistics</div><div class="skill-cell-desc">High-dimensional modeling, machine &amp; deep learning, statistical computing</div></div>
+          <div class="skill-cell"><div class="skill-cell-icon">💹</div><div class="skill-cell-title">Quant Finance</div><div class="skill-cell-desc">Econometrics, cash flows, portfolios, asset liability management</div></div>
+          <div class="skill-cell"><div class="skill-cell-icon">🛡️</div><div class="skill-cell-title">Risk Management</div><div class="skill-cell-desc">Risk models, market risk, surveillance systems</div></div>
+          <div class="skill-cell"><div class="skill-cell-icon">💻</div><div class="skill-cell-title">Languages</div><div class="skill-cell-desc">R, Python, SQL, MATLAB, EViews, LaTeX, Power BI</div></div>
         </div>
       </div>
-
-    </div>
-  </section>
-
-  <!-- Publications -->
-  <section id="publications" class="section">
-    <div class="container">
-      <h2 class="section-title">Publications</h2>
-      <div class="pub-card">
-        <div class="pub-meta">Scientific Reports &middot; Dec 17, 2021</div>
-        <h3><a href="https://rdcu.be/c8ePY" target="_blank">Functional Random Forests for Curve Response</a></h3>
-        <p>Introduces a novel functional random forests (FunFor) approach to model functional data response that is densely and regularly measured. FunFor predicts curve responses for new observations and selects important variables from large sets of scalar predictors. It detects complex nonlinear and high-order interactions without parametric or distributional assumptions, and consistently outperformed existing methods across eight simulation settings and one real-data analysis. An R package is available on GitHub.</p>
-        <div class="tag-row">
-          <span class="tag-sm">Functional Data Analysis</span>
-          <span class="tag-sm">Random Forests</span>
-          <span class="tag-sm">R Package</span>
+      <div class="reveal">
+        <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem">Technologies &amp; Skills</p>
+        <div class="skill-tags">
+          <span class="tag">Machine Learning</span><span class="tag">Risk Management</span>
+          <span class="tag">R</span><span class="tag">Python</span><span class="tag">SQL</span>
+          <span class="tag">MATLAB</span><span class="tag">Power BI</span><span class="tag">EViews</span>
+          <span class="tag">LaTeX</span><span class="tag">Econometrics</span>
+          <span class="tag">Time Series</span><span class="tag">Statistical Modeling</span>
+          <span class="tag">Cantonese</span><span class="tag">English</span><span class="tag">Mandarin</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Honors -->
-  <section id="honors" class="section section-alt">
-    <div class="container">
-      <h2 class="section-title">Honors &amp; Awards</h2>
-      <div class="honors-grid">
-        <div class="honor-card">
-          <span class="honor-icon">&#x1F3C6;</span>
-          <h4>Miguel Arcones Memorial Award</h4>
-          <p>Binghamton University &middot; May 2021</p>
-        </div>
-        <div class="honor-card">
-          <span class="honor-icon">&#x1F393;</span>
-          <h4>Class of 1989 Scholarship</h4>
-          <p>Binghamton University &middot; Aug 2020</p>
-        </div>
+<section id="experience">
+  <div class="section-inner">
+    <p class="section-label reveal">Career</p>
+    <h2 class="section-title reveal">Work <em>Experience</em></h2>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot active"></div>
+        <div class="tl-date">Mar 2026 – Present</div>
+        <div class="tl-company">RVI Group &middot; Stamford, CT</div>
+        <div class="tl-role">Sr. Manager, Quantitative Analysis</div>
+        <div class="tl-tags"><span class="t-tag">Market Risk</span><span class="t-tag">Machine Learning</span><span class="t-tag">Econometrics</span></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Aug 2025 – Feb 2026</div>
+        <div class="tl-company">RVI Group &middot; Stamford, CT</div>
+        <div class="tl-role">Manager, Quantitative Analysis</div>
+        <div class="tl-tags"><span class="t-tag">Market Risk</span><span class="t-tag">Machine Learning</span><span class="t-tag">Econometrics</span></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Mar 2024 – Aug 2025</div>
+        <div class="tl-company">RVI Group &middot; Stamford, CT</div>
+        <div class="tl-role">Sr. Associate, Quantitative Analysis</div>
+        <div class="tl-body"><ul><li><strong>Pricing:</strong> PV China Policies</li><li><strong>Modeling:</strong> Distribution, ML, time series, and econometric models</li><li><strong>Risk Management:</strong> Risk models, surveillances</li><li><strong>Research:</strong> BEV TOC, battery leasing, NEV penetration</li><li><strong>Business Development:</strong> PV market updates</li></ul></div>
+        <div class="tl-tags"><span class="t-tag">Market Risk</span><span class="t-tag">Machine Learning</span><span class="t-tag">Econometrics</span></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Jan 2023 – Feb 2024</div>
+        <div class="tl-company">RVI Group &middot; Stamford, CT</div>
+        <div class="tl-role">Associate, Quantitative Analysis</div>
+        <div class="tl-body"><p>Built and maintained models supporting passenger vehicle residual value risk analysis. Assisted in recalibration of residual value forecast and lease return rate forecast models.</p></div>
+        <div class="tl-tags"><span class="t-tag">Machine Learning</span><span class="t-tag">Market Risk</span></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Aug 2021 – May 2022</div>
+        <div class="tl-company">Binghamton University &middot; Binghamton, NY</div>
+        <div class="tl-role">Graduate Teaching Assistant</div>
+        <div class="tl-body"><ul><li>MATH 531 Regression I (Fall 2021)</li><li>MATH 455 Introduction to Regression (Fall 2021, Spring 2022)</li></ul></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Dec 2020 – Jul 2021</div>
+        <div class="tl-company">Binghamton University &middot; Binghamton, NY</div>
+        <div class="tl-role">Machine Learning Algorithms Researcher</div>
+        <div class="tl-body"><p>Researched and published Functional Random Forests for Curve Response in <em>Scientific Reports</em>.</p></div>
+        <div class="tl-tags"><span class="t-tag">Statistical Modeling</span><span class="t-tag">Simulations</span></div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Nov 2019 – May 2021</div>
+        <div class="tl-company">Binghamton University &middot; New York</div>
+        <div class="tl-role">Undergraduate Teaching Assistant</div>
+        <div class="tl-body"><ul><li>MATH 448 Mathematical Statistics (Spring 2020, Fall 2020)</li><li>MATH 329 Intro to Scientific Computing (Spring 2020, Fall 2020, Spring 2021)</li></ul></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Organizations -->
-  <section id="organizations" class="section">
-    <div class="container">
-      <h2 class="section-title">Organizations</h2>
-      <div class="org-grid">
-        <div class="org-card">
-          <h3>Phi Beta Kappa</h3>
-          <p class="org-role">Contributing Member &middot; Dec 2020 &ndash; Present</p>
-          <p>Associated with Binghamton University</p>
-        </div>
-        <div class="org-card">
-          <h3>Mathematical Problem-solving Group</h3>
-          <p class="org-role">Founding Member</p>
-          <p>Associated with Binghamton University</p>
-          <ul>
-            <li>Discuss problems from Putnam and AIME competitions</li>
-            <li>Prepare and solve problems before group discussion</li>
-          </ul>
-          <a href="http://people.math.binghamton.edu/borisov/Putnam/ProblemSolving.html" target="_blank" class="link-arrow">Learn more &#x2192;</a>
-        </div>
+<section id="education">
+  <div class="section-inner">
+    <p class="section-label reveal">Academic</p>
+    <h2 class="section-title reveal"><em>Education</em></h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-initials">CU</div>
+        <div class="edu-school">Columbia University</div>
+        <div class="edu-degree">Master of Arts – Statistics</div>
+        <div class="edu-major">Data Science &amp; Statistical Finance</div>
+        <div class="edu-years">2021 – 2023</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-initials">BU</div>
+        <div class="edu-school">Binghamton University</div>
+        <div class="edu-degree">Bachelor of Science – Mathematics</div>
+        <div class="edu-major">Actuarial Science</div>
+        <div class="edu-years">2017 – 2021</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Stats Game -->
-  <section id="game" class="section section-alt">
-    <div class="container">
-      <h2 class="section-title">Stats Game</h2>
-      <div class="game-card">
-        <p>Ten random numbers between 0 and 100 are generated. Can you guess their mean?</p>
-        <div id="numbers" class="numbers-display"></div>
-        <div class="game-controls">
-          <input type="number" id="guess" placeholder="Your guess (e.g. 52.5)">
-          <button id="checkGuess">Check</button>
-          <button id="newGame" class="btn-outline">New Numbers</button>
-        </div>
-        <p id="result" class="game-result"></p>
+<section id="publications">
+  <div class="section-inner">
+    <p class="section-label reveal">Research</p>
+    <h2 class="section-title reveal"><em>Publications</em></h2>
+    <div class="pub-card reveal">
+      <div class="pub-number">01</div>
+      <div class="pub-venue">Scientific Reports &middot; Dec 17, 2021</div>
+      <div class="pub-title"><a href="https://rdcu.be/c8ePY" target="_blank">Functional Random Forests for Curve Response</a></div>
+      <div class="pub-abstract">Introduces a novel functional random forests (FunFor) approach to model functional data response that is densely and regularly measured. FunFor predicts curve responses for new observations and selects important variables from large sets of scalar predictors. It detects complex nonlinear and high-order interactions without parametric or distributional assumptions, and consistently outperformed existing methods across eight simulation settings and one real-data analysis. An R package is available on GitHub.</div>
+      <div class="pub-tags" style="margin-top:1.5rem">
+        <span class="tag">Functional Data Analysis</span><span class="tag">Random Forests</span><span class="tag">R Package</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Contact -->
-  <section id="contact" class="section">
-    <div class="container contact-container">
-      <h2 class="section-title">Get in Touch</h2>
-      <p>Feel free to reach out — I'm always happy to connect.</p>
-      <div class="contact-links">
-        <a href="mailto:yl4829@columbia.edu" class="contact-link">
-          <span>&#x2709;&#xFE0F;</span> yl4829@columbia.edu
+<section id="honors">
+  <div class="section-inner">
+    <p class="section-label reveal">Recognition</p>
+    <h2 class="section-title reveal">Honors &amp; <em>Awards</em></h2>
+    <div class="honors-grid">
+      <div class="honor-card reveal">
+        <div class="honor-icon">🏆</div>
+        <div><div class="honor-title">Miguel Arcones Memorial Award</div><div class="honor-source">Binghamton University</div><div class="honor-date">May 2021</div></div>
+      </div>
+      <div class="honor-card reveal">
+        <div class="honor-icon">🎓</div>
+        <div><div class="honor-title">Class of 1989 Scholarship</div><div class="honor-source">Binghamton University</div><div class="honor-date">Aug 2020</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="organizations">
+  <div class="section-inner">
+    <p class="section-label reveal">Community</p>
+    <h2 class="section-title reveal"><em>Organizations</em></h2>
+    <div class="org-list">
+      <div class="org-card reveal">
+        <div><div class="org-name">Phi Beta Kappa</div><div class="org-role">Contributing Member &middot; Dec 2020 – Present</div><div class="org-meta">Associated with Binghamton University</div></div>
+      </div>
+      <div class="org-card reveal">
+        <div><div class="org-name">Mathematical Problem-solving Group</div><div class="org-role">Founding Member</div><div class="org-desc">Discuss problems from Putnam and AIME competitions. Prepare and solve problems before group discussion.</div><div class="org-meta">Associated with Binghamton University</div><div style="margin-top:1rem"><a class="org-link" href="http://people.math.binghamton.edu/borisov/Putnam/ProblemSolving.html" target="_blank">Learn more &rarr;</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="game">
+  <div class="section-inner">
+    <p class="section-label reveal" style="justify-content:center">Interactive</p>
+    <h2 class="section-title reveal" style="text-align:center">Stats <em>Game</em></h2>
+    <div class="game-container">
+      <p class="game-desc reveal">Ten random numbers between 0 and 100 are generated.<br>Can you guess their mean?</p>
+      <div class="numbers-display reveal" id="numbers-display"></div>
+      <div class="game-input-row reveal">
+        <input class="game-input" id="game-input" type="number" placeholder="?" min="0" max="100" step="0.1">
+        <button class="btn-primary" onclick="checkGuess()">Check</button>
+        <button class="btn-outline" onclick="newGame()">New</button>
+      </div>
+      <div class="game-result reveal" id="game-result"></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="reveal">
+        <p class="section-label">Get in Touch</p>
+        <h2 class="contact-tagline">Let's <em>connect</em> and collaborate.</h2>
+        <p class="contact-subtext">Feel free to reach out — I'm always happy to connect and discuss quantitative analysis, risk modeling, or research opportunities.</p>
+      </div>
+      <div class="contact-links reveal">
+        <a class="contact-link" href="mailto:yl4829@columbia.edu">
+          <span class="contact-link-icon">✉️</span>
+          <div><div class="contact-link-label">Email</div><div class="contact-link-value">yl4829@columbia.edu</div></div>
         </a>
-        <a href="https://www.linkedin.com/in/yehengliang/" target="_blank" class="contact-link">
-          <span>&#x1F517;</span> linkedin.com/in/yehengliang
+        <a class="contact-link" href="https://www.linkedin.com/in/yehengliang/" target="_blank">
+          <span class="contact-link-icon">🔗</span>
+          <div><div class="contact-link-label">LinkedIn</div><div class="contact-link-value">linkedin.com/in/yehengliang</div></div>
         </a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    <p>&copy; 2026 Yeheng Liang. All rights reserved.</p>
-  </footer>
+<footer>
+  <span class="logo">YL</span>
+  <span>&copy; 2026 Yeheng Liang. All rights reserved.</span>
+</footer>
 
-  <script src="game.js"></script>
+<div id="tweaks-panel">
+  <div class="tw-title">Tweaks</div>
+  <label>Accent Color<input type="color" id="tw-accent" value="#d4a843"></label>
+  <label>Particle Density<input type="range" id="tw-particles" min="20" max="150" value="70" style="width:100%"></label>
+  <label style="flex-direction:row;align-items:center;gap:0.6rem"><input type="checkbox" id="tw-grid" checked> Background Grid</label>
+</div>
+
+<script>
+// Canvas particles
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"accentHex":"#d4a843","particleCount":70,"showGrid":true}/*EDITMODE-END*/;
+let particleCount = TWEAK_DEFAULTS.particleCount;
+let showGrid = TWEAK_DEFAULTS.showGrid;
+let accentHex = TWEAK_DEFAULTS.accentHex;
+
+function hexRgb(h) {
+  return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+}
+
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+
+function initP() {
+  particles = Array.from({length: particleCount}, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    r: Math.random()*1.5+0.3,
+    vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
+    a: Math.random()*.5+.1
+  }));
+}
+
+function draw() {
+  ctx.clearRect(0,0,W,H);
+  const [r,g,b] = hexRgb(accentHex);
+  const ac = `${r},${g},${b}`;
+
+  if (showGrid) {
+    ctx.strokeStyle = `rgba(${ac},0.045)`;
+    ctx.lineWidth = .5;
+    for (let x=0; x<W; x+=80) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+    for (let y=0; y<H; y+=80) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+  }
+
+  particles.forEach((p,i) => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x<0) p.x=W; if (p.x>W) p.x=0;
+    if (p.y<0) p.y=H; if (p.y>H) p.y=0;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(${ac},${p.a})`; ctx.fill();
+    for (let j=i+1; j<particles.length; j++) {
+      const q = particles[j];
+      const d = Math.hypot(p.x-q.x, p.y-q.y);
+      if (d < 120) {
+        ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
+        ctx.strokeStyle = `rgba(${ac},${.06*(1-d/120)})`; ctx.lineWidth=.5; ctx.stroke();
+      }
+    }
+  });
+  requestAnimationFrame(draw);
+}
+
+window.addEventListener('resize', () => { resize(); initP(); });
+resize(); initP(); draw();
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), {threshold: 0.12});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Nav
+window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 60));
+
+// YOE counter
+const yoeEl = document.getElementById('yoe-counter');
+const yoeTarget = +((Date.now() - new Date(2023,0,1)) / (365.25*24*3600*1000)).toFixed(1);
+let yoeCur = 0;
+const tickYoe = () => { yoeCur = Math.min(yoeCur+.1, yoeTarget); yoeEl.textContent = yoeCur.toFixed(1); if (yoeCur < yoeTarget) setTimeout(tickYoe, 30); };
+setTimeout(tickYoe, 1200);
+
+// Stats game
+let nums = [], mean = 0;
+function newGame() {
+  nums = Array.from({length:10}, () => Math.round(Math.random()*100));
+  mean = nums.reduce((a,b)=>a+b,0)/10;
+  const d = document.getElementById('numbers-display');
+  d.innerHTML = '';
+  nums.forEach((n,i) => {
+    const c = document.createElement('div'); c.className='num-chip'; c.textContent=n;
+    c.style.animationDelay = i*60+'ms'; d.appendChild(c);
+  });
+  document.getElementById('game-input').value = '';
+  document.getElementById('game-result').textContent = '';
+  document.getElementById('game-result').className = 'game-result';
+}
+function checkGuess() {
+  const val = parseFloat(document.getElementById('game-input').value);
+  if (isNaN(val)) return;
+  const diff = Math.abs(val - mean);
+  const r = document.getElementById('game-result');
+  if (diff === 0) { r.textContent = `Perfect! The mean is exactly ${mean.toFixed(1)}`; r.className='game-result correct'; }
+  else if (diff <= 3) { r.textContent = `Almost! Mean is ${mean.toFixed(1)} — off by ${diff.toFixed(1)}`; r.className='game-result close'; }
+  else { r.textContent = `Mean is ${mean.toFixed(1)} — off by ${diff.toFixed(1)}`; r.className='game-result off'; }
+}
+document.getElementById('game-input').addEventListener('keydown', e => { if (e.key==='Enter') checkGuess(); });
+newGame();
+
+// Tweaks
+window.addEventListener('message', e => {
+  if (e.data?.type==='__activate_edit_mode') document.getElementById('tweaks-panel').style.display='block';
+  if (e.data?.type==='__deactivate_edit_mode') document.getElementById('tweaks-panel').style.display='none';
+});
+window.parent.postMessage({type:'__edit_mode_available'}, '*');
+
+document.getElementById('tw-accent').addEventListener('input', function() {
+  accentHex = this.value;
+  document.documentElement.style.setProperty('--gold', this.value);
+  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{accentHex: this.value}}, '*');
+});
+document.getElementById('tw-particles').addEventListener('input', function() {
+  particleCount = +this.value; initP();
+  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{particleCount:+this.value}}, '*');
+});
+document.getElementById('tw-grid').addEventListener('change', function() {
+  showGrid = this.checked;
+  window.parent.postMessage({type:'__edit_mode_set_keys', edits:{showGrid:this.checked}}, '*');
+});
+</script>
 </body>
 </html>
