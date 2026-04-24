@@ -85,6 +85,80 @@ section { position: relative; z-index: 1; padding: 7rem 3rem; }
 .section-title { font-family: var(--fd); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; margin-bottom: 3rem; }
 .section-title em { font-style: italic; color: var(--gold); }
 
+/* Hero photo */
+.hero-photo-wrap {
+  width: 110px; height: 110px; border-radius: 50%;
+  border: 2px solid var(--gold);
+  overflow: hidden; margin-bottom: 1.8rem;
+  box-shadow: 0 0 0 6px oklch(76% 0.155 82 / 0.1), 0 0 40px oklch(76% 0.155 82 / 0.15);
+  opacity: 0; transform: scale(0.85);
+  animation: fadeUp 0.8s 0.15s var(--ease-out) forwards;
+}
+.hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+/* Skills bars */
+.skills-chart { display: flex; flex-direction: column; gap: 1rem; }
+.skill-bar-row { display: flex; flex-direction: column; gap: 0.35rem; }
+.skill-bar-meta { display: flex; justify-content: space-between; align-items: baseline; }
+.skill-bar-name { font-size: 0.75rem; font-weight: 500; color: var(--text); letter-spacing: 0.04em; }
+.skill-bar-pct { font-family: var(--fd); font-size: 1rem; font-weight: 300; color: var(--gold); }
+.skill-bar-track { height: 3px; background: var(--border); position: relative; overflow: hidden; }
+.skill-bar-fill {
+  position: absolute; left: 0; top: 0; height: 100%;
+  background: linear-gradient(to right, var(--gold2), var(--gold));
+  width: 0; transition: width 1.2s var(--ease-out);
+}
+.skill-bar-row.in .skill-bar-fill { width: var(--pct); }
+
+/* Book section */
+#reading { background: var(--bg); }
+.book-card { display: grid; grid-template-columns: 60px 1fr; gap: 3rem; border: 1px solid var(--border); background: var(--surface); overflow: hidden; transition: border-color 0.3s; }
+.book-card:hover { border-color: var(--gold); }
+.book-spine { background: var(--gold); width: 60px; display: flex; align-items: center; justify-content: center; min-height: 400px; flex-shrink: 0; }
+.book-spine-text { font-family: var(--fd); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bg); writing-mode: vertical-rl; transform: rotate(180deg); }
+.book-content { padding: 3rem 3rem 3rem 0; }
+.book-meta { display: flex; gap: 0.6rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+.book-badge { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.8rem; background: var(--bg3); border: 1px solid var(--border); color: var(--muted); }
+.book-badge-oa { border-color: var(--gold); color: var(--gold); }
+.book-title { font-family: var(--fd); font-size: 2.8rem; font-weight: 300; line-height: 1.1; margin-bottom: 0.4rem; }
+.book-authors { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; margin-bottom: 1.5rem; }
+.book-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.9; margin-bottom: 2rem; }
+.book-desc strong { color: var(--text); font-weight: 500; }
+.book-insights { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+.book-insight { padding: 1.2rem; border: 1px solid var(--border); background: var(--bg2); }
+.book-insight-head { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+.book-insight-body { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+.book-link { font-size: 0.78rem; color: var(--gold); text-decoration: none; letter-spacing: 0.05em; transition: opacity 0.2s; }
+.book-link:hover { opacity: 0.7; }
+
+/* Speaking section */
+#speaking { background: var(--bg3); }
+.speaking-card {
+  display: grid; grid-template-columns: 1fr 2fr; gap: 4rem;
+  padding: 3.5rem 4rem; border: 1px solid var(--border);
+  background: var(--surface); position: relative; overflow: hidden;
+  transition: border-color 0.3s;
+}
+.speaking-card:hover { border-color: var(--gold); }
+.speaking-card::before {
+  content: '"'; font-family: var(--fd); font-size: 14rem; font-weight: 300;
+  color: var(--gold); opacity: 0.07; position: absolute;
+  top: -2rem; left: 2rem; line-height: 1; pointer-events: none;
+}
+.speaking-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--bg); background: var(--gold); padding: 0.3rem 0.8rem;
+  margin-bottom: 1.5rem;
+}
+.speaking-institution { font-family: var(--fd); font-size: 2.2rem; font-weight: 300; line-height: 1.1; margin-bottom: 0.5rem; }
+.speaking-institution em { font-style: italic; color: var(--gold); }
+.speaking-date { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+.speaking-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.9; }
+.speaking-left { display: flex; flex-direction: column; align-items: flex-start; }
+.speaking-stat { font-family: var(--fd); font-size: 3.5rem; font-weight: 300; color: var(--gold); line-height: 1; }
+.speaking-stat-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
 #about { background: var(--bg2); }
 .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: start; }
 .about-text p { font-size: 1.05rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.5rem; }
@@ -125,6 +199,7 @@ section { position: relative; z-index: 1; padding: 7rem 3rem; }
 .edu-degree { font-size: 0.8rem; font-weight: 500; color: var(--gold); margin-bottom: 0.3rem; }
 .edu-major { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .edu-years { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; }
+.edu-card em { font-style: italic; color: var(--gold); }
 
 #publications { background: var(--bg); }
 .pub-card { border: 1px solid var(--border); padding: 2.5rem 3rem; position: relative; overflow: hidden; transition: border-color 0.3s; background: var(--surface); }
@@ -220,7 +295,9 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
     <li><a href="#experience">Experience</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#publications">Research</a></li>
+    <li><a href="#speaking">Speaking</a></li>
     <li><a href="#honors">Honors</a></li>
+    <li><a href="#reading">Reading</a></li>
     <li><a href="#game">Stats Game</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -229,6 +306,7 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
 <section id="home">
   <div class="hero-inner">
     <div>
+      <div class="hero-photo-wrap"><img src="uploads/Yeheng02.jpeg" alt="Yeheng Liang" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;"></div>
       <p class="hero-greeting">Quantitative Analysis &middot; Risk Modeling</p>
       <h1 class="hero-name">Yeheng<br><em>Liang</em></h1>
       <p class="hero-role"><strong>Sr. Manager, Quantitative Analysis</strong> at RVI Group<br>Scientific computing &middot; Statistical modeling &middot; Machine learning</p>
@@ -280,14 +358,18 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
         </div>
       </div>
       <div class="reveal">
-        <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem">Technologies &amp; Skills</p>
-        <div class="skill-tags">
-          <span class="tag">Machine Learning</span><span class="tag">Risk Management</span>
-          <span class="tag">R</span><span class="tag">Python</span><span class="tag">SQL</span>
-          <span class="tag">MATLAB</span><span class="tag">Power BI</span><span class="tag">EViews</span>
-          <span class="tag">LaTeX</span><span class="tag">Econometrics</span>
-          <span class="tag">Time Series</span><span class="tag">Statistical Modeling</span>
-          <span class="tag">Cantonese</span><span class="tag">English</span><span class="tag">Mandarin</span>
+        <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem">Skill Proficiency</p>
+        <div class="skills-chart" id="skills-chart">
+          <div class="skill-bar-row" style="--pct:95%"><div class="skill-bar-meta"><span class="skill-bar-name">Statistical Modeling</span><span class="skill-bar-pct">95</span></div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+          <div class="skill-bar-row" style="--pct:92%"><div class="skill-bar-meta"><span class="skill-bar-name">R</span><span class="skill-bar-pct">92</span></div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+          <div class="skill-bar-row" style="--pct:90%"><div class="skill-bar-meta"><span class="skill-bar-name">Risk Management</span><span class="skill-bar-pct">90</span></div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+          <div class="skill-bar-row" style="--pct:90%"><div class="skill-bar-meta"><span class="skill-bar-name">Python</span><span class="skill-bar-pct">90</span></div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+          <div class="skill-bar-row" style="--pct:90%"><div class="skill-bar-meta"><span class="skill-bar-name">SQL</span><span class="skill-bar-pct">90</span></div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+          <div class="skill-bar-row" style="--pct:90%"><div class="skill-bar-meta"><span class="skill-bar-name">Power BI</span><span class="skill-bar-pct">90</span></div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+          <div class="skill-bar-row" style="--pct:88%"><div class="skill-bar-meta"><span class="skill-bar-name">Machine Learning</span><span class="skill-bar-pct">88</span></div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+          <div class="skill-bar-row" style="--pct:88%"><div class="skill-bar-meta"><span class="skill-bar-name">Econometrics</span><span class="skill-bar-pct">88</span></div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+          <div class="skill-bar-row" style="--pct:75%"><div class="skill-bar-meta"><span class="skill-bar-name">MATLAB</span><span class="skill-bar-pct">75</span></div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
+          <div class="skill-bar-row" style="--pct:70%"><div class="skill-bar-meta"><span class="skill-bar-name">EViews</span><span class="skill-bar-pct">70</span></div><div class="skill-bar-track"><div class="skill-bar-fill"></div></div></div>
         </div>
       </div>
     </div>
@@ -371,8 +453,10 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
         <div class="edu-initials">BU</div>
         <div class="edu-school">Binghamton University</div>
         <div class="edu-degree">Bachelor of Science – Mathematics</div>
-        <div class="edu-major">Actuarial Science</div>
-        <div class="edu-years">2017 – 2021</div>
+        <div class="edu-major">Actuarial Science &middot; <em>Top #1 Actuarial Track</em></div>
+        <div class="edu-major" style="margin-top:0.3rem">Double Major: Economics – Applied Econometrics</div>
+        <div class="edu-major" style="margin-top:0.3rem;color:var(--gold);font-size:0.75rem;font-weight:500">Department Honors in Mathematics</div>
+        <div class="edu-years" style="margin-top:0.8rem">2017 – 2021</div>
       </div>
     </div>
   </div>
@@ -389,6 +473,28 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
       <div class="pub-abstract">Introduces a novel functional random forests (FunFor) approach to model functional data response that is densely and regularly measured. FunFor predicts curve responses for new observations and selects important variables from large sets of scalar predictors. It detects complex nonlinear and high-order interactions without parametric or distributional assumptions, and consistently outperformed existing methods across eight simulation settings and one real-data analysis. An R package is available on GitHub.</div>
       <div class="pub-tags" style="margin-top:1.5rem">
         <span class="tag">Functional Data Analysis</span><span class="tag">Random Forests</span><span class="tag">R Package</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="speaking">
+  <div class="section-inner">
+    <p class="section-label reveal">Invited Talk</p>
+    <h2 class="section-title reveal"><em>Speaking</em></h2>
+    <div class="speaking-card reveal">
+      <div class="speaking-left">
+        <div class="speaking-badge">Practitioner Speaker</div>
+        <div class="speaking-stat">CU</div>
+        <div class="speaking-stat-label">Columbia University</div>
+        <div style="margin-top:2rem;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)">New York, NY</div>
+      </div>
+      <div>
+        <div class="speaking-institution">Columbia <em>University</em><br>MA Statistics Seminar</div>
+        <div class="speaking-date">September 8, 2025</div>
+        <div class="speaking-desc">
+          Invited back as a practitioner speaker for the Columbia University MA Statistics program seminar — sharing real-world insights on quantitative analysis, residual value risk modeling, and the application of statistical methods in the automotive finance industry. Bridging academic foundations with industry practice for the next generation of statisticians.
+        </div>
       </div>
     </div>
   </div>
@@ -421,6 +527,34 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
       </div>
       <div class="org-card reveal">
         <div><div class="org-name">Mathematical Problem-solving Group</div><div class="org-role">Founding Member</div><div class="org-desc">Discuss problems from Putnam and AIME competitions. Prepare and solve problems before group discussion.</div><div class="org-meta">Associated with Binghamton University</div><div style="margin-top:1rem"><a class="org-link" href="http://people.math.binghamton.edu/borisov/Putnam/ProblemSolving.html" target="_blank">Learn more &rarr;</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reading">
+  <div class="section-inner">
+    <p class="section-label reveal">Thought Leadership</p>
+    <h2 class="section-title reveal">Book <em>Recommendation</em></h2>
+    <div class="book-card reveal">
+      <div class="book-spine">
+        <span class="book-spine-text">DATA FEMINISM</span>
+      </div>
+      <div class="book-content">
+        <div class="book-meta">
+          <span class="book-badge">Recommended Read</span>
+          <span class="book-badge book-badge-oa">Open Access</span>
+        </div>
+        <div class="book-title">Data Feminism</div>
+        <div class="book-authors">Catherine D'Ignazio &amp; Lauren F. Klein &middot; MIT Press, 2020</div>
+        <div class="book-desc">
+          A landmark work examining how power and bias shape data collection, analysis, and modeling. For statisticians and actuaries, this book reframes model fairness not as a PR concern but as a <strong>model validity problem</strong> — our GLMs aren't neutral, and variable selection embeds assumptions about who matters.
+        </div>
+        <div class="book-insights">
+          <div class="book-insight"><div class="book-insight-head">Why it matters for quant work</div><div class="book-insight-body">Historical claims data reflects who was insured, on what terms — your model inherits that history. Removing a variable doesn't remove its influence; correlated proxies absorb the signal.</div></div>
+          <div class="book-insight"><div class="book-insight-head">Key application</div><div class="book-insight-body">Disparate impact testing, causal DAG analysis, and orthogonalisation — practical tools to audit rating variables for proxy discrimination in pricing models.</div></div>
+        </div>
+        <a class="book-link" href="https://datafeminism.mitpress.mit.edu" target="_blank">Read free online &rarr;</a>
       </div>
     </div>
   </div>
@@ -539,6 +673,10 @@ resize(); initP(); draw();
 // Scroll reveal
 const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), {threshold: 0.12});
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Skill bars
+const barObs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), {threshold: 0.2});
+document.querySelectorAll('.skill-bar-row').forEach((el, i) => { el.style.transitionDelay = `${i * 80}ms`; barObs.observe(el); });
 
 // Nav
 window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 60));
