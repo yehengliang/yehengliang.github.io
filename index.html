@@ -245,6 +245,30 @@ section { position: relative; z-index: 1; padding: 7rem 3rem; }
 .game-result.close    { color: oklch(78% 0.16 65); }
 .game-result.off      { color: oklch(65% 0.16 25); }
 
+/* Stats game viz */
+.game-mode { display: flex; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 0 auto 2rem; max-width: 360px; }
+.game-mode-cell { background: var(--bg2); padding: 0.55rem 1rem; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); cursor: pointer; flex: 1; text-align: center; transition: background 0.2s, color 0.2s; }
+.game-mode-cell:hover { color: var(--text); }
+.game-mode-cell.active { background: var(--gold); color: var(--bg); font-weight: 600; }
+.game-viz { margin-top: 2rem; opacity: 0; transition: opacity 0.5s; }
+.game-viz.show { opacity: 1; }
+#game-canvas { width: 100%; max-width: 700px; height: 120px; display: block; margin: 0 auto; }
+.game-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 1rem; }
+.game-stat { background: var(--bg2); padding: 0.9rem; text-align: center; }
+.game-stat-label { font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+.game-stat-value { font-family: var(--fd); font-size: 1.4rem; font-weight: 300; color: var(--gold); line-height: 1; }
+.game-stat-value.your { color: var(--text); }
+
+/* Game education panel */
+.game-learn { margin-top: 1.5rem; padding: 1.2rem 1.5rem; border: 1px solid var(--border); background: var(--bg3); text-align: left; }
+.game-learn-head { display: flex; align-items: center; gap: 0.6rem; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.7rem; }
+.game-learn-head::before { content: ''; width: 14px; height: 1px; background: var(--gold); }
+.game-learn-body { font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
+.game-learn-body strong { color: var(--text); font-weight: 500; }
+.game-learn-formula { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--gold); margin: 0.4rem 0; }
+.game-insight { margin-top: 1rem; padding: 0.9rem 1.2rem; background: var(--bg2); border-left: 2px solid var(--gold); font-size: 0.8rem; color: var(--text); line-height: 1.7; }
+.game-insight em { color: var(--gold); font-style: normal; font-weight: 500; }
+
 #contact { background: var(--bg); min-height: 50vh; display: flex; align-items: center; }
 #contact .section-inner { width: 100%; }
 .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
@@ -274,6 +298,73 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
 #tweaks-panel input[type=color] { width: 100%; height: 32px; border: 1px solid var(--border); background: var(--bg); cursor: pointer; }
 #tweaks-panel .tw-title { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
 
+/* Residual Value Explorer */
+#explorer { background: var(--bg2); }
+.explorer-card { border: 1px solid var(--border); background: var(--surface); padding: 2.5rem; }
+.explorer-intro { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 720px; }
+.explorer-intro strong { color: var(--text); font-weight: 500; }
+.explorer-grid { display: grid; grid-template-columns: 280px 1fr; gap: 2.5rem; align-items: start; }
+.explorer-controls { display: flex; flex-direction: column; gap: 1.8rem; }
+.ctl-group { display: flex; flex-direction: column; gap: 0.7rem; }
+.ctl-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.ctl-label-value { font-family: var(--fd); font-size: 1.4rem; font-weight: 300; color: var(--gold); line-height: 1; }
+.ctl-seg { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.ctl-seg-cell { background: var(--bg2); padding: 0.55rem 0.4rem; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); cursor: pointer; text-align: center; transition: background 0.2s, color 0.2s; }
+.ctl-seg-cell:hover { color: var(--text); }
+.ctl-seg-cell.active { background: var(--gold); color: var(--bg); font-weight: 600; }
+.ctl-seg-5 { grid-template-columns: repeat(5, 1fr); }
+.ctl-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--border); outline: none; cursor: pointer; }
+.ctl-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--gold); border-radius: 50%; cursor: pointer; transition: transform 0.15s; }
+.ctl-slider::-webkit-slider-thumb:hover { transform: scale(1.3); }
+.ctl-slider::-moz-range-thumb { width: 14px; height: 14px; background: var(--gold); border: none; border-radius: 50%; cursor: pointer; }
+.ctl-toggle { display: flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; color: var(--muted); cursor: pointer; }
+.ctl-toggle input { accent-color: var(--gold); }
+.explorer-canvas-wrap { position: relative; }
+#rv-canvas { width: 100%; height: 360px; display: block; }
+.explorer-legend { display: flex; gap: 1.8rem; margin-top: 1rem; flex-wrap: wrap; font-size: 0.75rem; color: var(--muted); }
+.legend-item { display: flex; align-items: center; gap: 0.5rem; }
+.legend-dot { width: 10px; height: 2px; }
+.legend-dot.gold { background: var(--gold); }
+.legend-dot.muted { background: oklch(55% 0.015 260); border-top: 1px dashed oklch(55% 0.015 260); height: 0; border-top-width: 2px; border-top-style: dashed; }
+.explorer-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 1.5rem; }
+.stat-cell { background: var(--bg2); padding: 1.1rem 1rem; }
+.stat-cell-label { font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+.stat-cell-value { font-family: var(--fd); font-size: 1.7rem; font-weight: 300; color: var(--gold); line-height: 1; }
+.stat-cell-sub { font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; }
+.explorer-footnote { font-size: 0.7rem; color: var(--muted); margin-top: 1.5rem; font-style: italic; line-height: 1.6; }
+
+/* Live Market Pulse */
+.pulse-card { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 2rem; align-items: center; padding: 1.4rem 1.8rem; border: 1px solid var(--border); background: var(--bg2); margin-bottom: 2.5rem; position: relative; }
+.pulse-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); }
+.pulse-live { display: flex; align-items: center; gap: 0.5rem; font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+.pulse-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 0 var(--gold); animation: pulseBlink 2s infinite; }
+@keyframes pulseBlink { 0%, 100% { box-shadow: 0 0 0 0 oklch(76% 0.155 82 / 0.6); } 50% { box-shadow: 0 0 0 6px oklch(76% 0.155 82 / 0); } }
+.pulse-label { font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+.pulse-value { font-family: var(--fd); font-size: 2rem; font-weight: 300; color: var(--text); line-height: 1; }
+.pulse-change { font-size: 0.8rem; margin-top: 0.4rem; }
+.pulse-change.up { color: oklch(72% 0.16 142); }
+.pulse-change.down { color: oklch(65% 0.16 25); }
+.pulse-change.flat { color: var(--muted); }
+.pulse-meta { font-size: 0.68rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.5; }
+.pulse-meta a { color: var(--gold); text-decoration: none; }
+.pulse-meta a:hover { opacity: 0.7; }
+#sparkline { width: 100%; height: 70px; display: block; }
+
+/* FRED signal indicator */
+.fred-signal { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem; padding: 0.6rem 0.8rem; background: var(--bg3); border: 1px solid var(--border); font-size: 0.72rem; color: var(--muted); }
+.fred-signal-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; animation: pulseBlink 2s infinite; }
+.fred-signal-text { flex: 1; line-height: 1.4; }
+.fred-signal-text strong { color: var(--gold); font-weight: 600; }
+.fred-signal-sync { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 0.3rem 0.7rem; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; font-family: var(--fb); font-weight: 500; transition: background 0.2s, color 0.2s; }
+.fred-signal-sync:hover { background: var(--gold); color: var(--bg); }
+
+/* Pulse card help tooltip */
+.pulse-help { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); font-size: 0.7rem; font-weight: 600; margin-left: 0.5rem; cursor: help; position: relative; vertical-align: middle; transition: background 0.2s, color 0.2s; font-family: var(--fb); }
+.pulse-help:hover { background: var(--gold); color: var(--bg); }
+.pulse-help-tip { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); background: var(--bg); border: 1px solid var(--gold); padding: 0.8rem 1rem; width: 280px; font-size: 0.72rem; color: var(--muted); line-height: 1.6; opacity: 0; pointer-events: none; transition: opacity 0.2s; text-transform: none; letter-spacing: normal; text-align: left; font-weight: normal; z-index: 10; box-shadow: 0 10px 30px oklch(0% 0 0 / 0.5); }
+.pulse-help:hover .pulse-help-tip { opacity: 1; }
+.pulse-help-tip strong { color: var(--text); }
+
 @media (max-width: 900px) {
   nav { padding: 1rem 1.5rem; }
   .nav-links { display: none; }
@@ -281,6 +372,9 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
   .hero-inner, .about-grid, .edu-grid, .honors-grid, .contact-inner { grid-template-columns: 1fr; }
   .hero-data-panel { display: none; }
   .pub-number { display: none; }
+  .explorer-grid { grid-template-columns: 1fr; }
+  .explorer-stats { grid-template-columns: 1fr 1fr; }
+  .pulse-card { grid-template-columns: 1fr; gap: 1rem; }
 }
 </style>
 </head>
@@ -298,6 +392,7 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
     <li><a href="#speaking">Speaking</a></li>
     <li><a href="#honors">Honors</a></li>
     <li><a href="#reading">Reading</a></li>
+    <li><a href="#explorer">RV Explorer</a></li>
     <li><a href="#game">Stats Game</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -554,7 +649,88 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
           <div class="book-insight"><div class="book-insight-head">Why it matters for quant work</div><div class="book-insight-body">Historical claims data reflects who was insured, on what terms — your model inherits that history. Removing a variable doesn't remove its influence; correlated proxies absorb the signal.</div></div>
           <div class="book-insight"><div class="book-insight-head">Key application</div><div class="book-insight-body">Disparate impact testing, causal DAG analysis, and orthogonalisation — practical tools to audit rating variables for proxy discrimination in pricing models.</div></div>
         </div>
-        <a class="book-link" href="https://mitpressonpubpub.mitpress.mit.edu/data-feminism" target="_blank">Read free online &rarr;</a>
+        <a class="book-link" href="https://datafeminism.mitpress.mit.edu" target="_blank">Read free online &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="explorer">
+  <div class="section-inner">
+    <p class="section-label reveal">Live Demo</p>
+    <h2 class="section-title reveal">Residual Value <em>Curve Explorer</em></h2>
+    <div class="explorer-card reveal">
+      <p class="explorer-intro">An interactive depreciation model demonstrating how <strong>vehicle type</strong>, <strong>annual mileage</strong>, and <strong>market conditions</strong> shape residual value over a 7-year horizon. Adjust the inputs to see how each factor compounds — the gold curve is your selection, the dashed line is the segment benchmark.</p>
+
+      <div class="pulse-card" id="pulse-card">
+        <div>
+          <div class="pulse-live">Live Market Pulse</div>
+          <div class="pulse-label">Used Vehicle CPI<span class="pulse-help">?<span class="pulse-help-tip"><strong>Consumer Price Index for Used Cars & Trucks</strong> (BLS, seasonally adjusted). Base period 1982–84 = 100. A reading of 179.6 means used vehicle prices are 79.6% above the 1982–84 baseline. Rising CPI → stronger used-car market → higher residual values.</span></span></div>
+          <div class="pulse-value" id="pulse-value">—</div>
+          <div class="pulse-change" id="pulse-change">Loading FRED data…</div>
+        </div>
+        <div>
+          <div class="pulse-label">Trailing 24-month range</div>
+          <div style="display:flex;gap:1.2rem;align-items:baseline;margin-top:0.4rem">
+            <div><div style="font-family:var(--fd);font-size:1.3rem;font-weight:300;color:var(--text)" id="pulse-low">—</div><div style="font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem">Low</div></div>
+            <div><div style="font-family:var(--fd);font-size:1.3rem;font-weight:300;color:var(--text)" id="pulse-high">—</div><div style="font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem">High</div></div>
+          </div>
+          <div class="pulse-meta" id="pulse-meta">Source: <a href="https://fred.stlouisfed.org/series/CUSR0000SETA02" target="_blank">FRED · CUSR0000SETA02</a></div>
+        </div>
+        <div>
+          <div class="pulse-label" style="text-align:right">24-month trend</div>
+          <canvas id="sparkline"></canvas>
+        </div>
+      </div>
+      <div class="explorer-grid">
+        <div class="explorer-controls">
+          <div class="ctl-group">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="ctl-label">Vehicle Type</span><span class="ctl-label-value" id="ctl-type-name" style="font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);font-family:var(--fb);font-weight:500">Sedan</span></div>
+            <div class="ctl-seg ctl-seg-5" id="ctl-type">
+              <div class="ctl-seg-cell active" data-v="sedan">Sedan</div>
+              <div class="ctl-seg-cell" data-v="suv">SUV</div>
+              <div class="ctl-seg-cell" data-v="truck">Truck</div>
+              <div class="ctl-seg-cell" data-v="luxury">Lux</div>
+              <div class="ctl-seg-cell" data-v="bev">BEV</div>
+            </div>
+          </div>
+          <div class="ctl-group">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="ctl-label">MSRP</span><span class="ctl-label-value" id="ctl-msrp-v">$45,000</span></div>
+            <input class="ctl-slider" type="range" id="ctl-msrp" min="20" max="120" value="45" step="5">
+          </div>
+          <div class="ctl-group">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="ctl-label">Annual Mileage</span><span class="ctl-label-value" id="ctl-mi-v">12,000 mi</span></div>
+            <input class="ctl-slider" type="range" id="ctl-mi" min="6" max="25" value="12" step="1">
+          </div>
+          <div class="ctl-group">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="ctl-label">Market Conditions</span><span class="ctl-label-value" id="ctl-mkt-name" style="font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);font-family:var(--fb);font-weight:500">Normal</span></div>
+            <div class="ctl-seg" id="ctl-mkt">
+              <div class="ctl-seg-cell" data-v="weak">Weak</div>
+              <div class="ctl-seg-cell active" data-v="normal">Normal</div>
+              <div class="ctl-seg-cell" data-v="strong">Strong</div>
+            </div>
+            <div class="fred-signal" id="fred-signal" style="display:none">
+              <span class="fred-signal-dot"></span>
+              <span class="fred-signal-text">FRED suggests: <strong id="fred-signal-state">—</strong> <span id="fred-signal-yoy">—</span></span>
+              <button class="fred-signal-sync" id="fred-signal-sync">Sync</button>
+            </div>
+          </div>
+          <label class="ctl-toggle"><input type="checkbox" id="ctl-benchmark" checked> Show segment benchmark</label>
+        </div>
+        <div class="explorer-canvas-wrap">
+          <canvas id="rv-canvas"></canvas>
+          <div class="explorer-legend">
+            <div class="legend-item"><span class="legend-dot gold"></span><span id="legend-main">Sedan · 12k mi · Normal</span></div>
+            <div class="legend-item"><span class="legend-dot muted"></span>Segment benchmark</div>
+          </div>
+          <div class="explorer-stats">
+            <div class="stat-cell"><div class="stat-cell-label">Year 1 RV</div><div class="stat-cell-value" id="stat-y1">—</div><div class="stat-cell-sub" id="stat-y1-d">—</div></div>
+            <div class="stat-cell"><div class="stat-cell-label">Year 3 RV</div><div class="stat-cell-value" id="stat-y3">—</div><div class="stat-cell-sub" id="stat-y3-d">—</div></div>
+            <div class="stat-cell"><div class="stat-cell-label">Year 5 RV</div><div class="stat-cell-value" id="stat-y5">—</div><div class="stat-cell-sub" id="stat-y5-d">—</div></div>
+            <div class="stat-cell"><div class="stat-cell-label">7-Yr Depreciation</div><div class="stat-cell-value" id="stat-dep">—</div><div class="stat-cell-sub" id="stat-dep-d">—</div></div>
+          </div>
+          <p class="explorer-footnote">Illustrative model for demonstration only.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -565,7 +741,12 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
     <p class="section-label reveal" style="justify-content:center">Interactive</p>
     <h2 class="section-title reveal" style="text-align:center">Stats <em>Game</em></h2>
     <div class="game-container">
-      <p class="game-desc reveal">Ten random numbers between 0 and 100 are generated.<br>Can you guess their mean?</p>
+      <p class="game-desc reveal">Ten random numbers between 0 and 100 are generated.<br>Can you guess the target statistic?</p>
+      <div class="game-mode reveal" id="game-mode">
+        <div class="game-mode-cell active" data-mode="mean">Mean</div>
+        <div class="game-mode-cell" data-mode="median">Median</div>
+        <div class="game-mode-cell" data-mode="sd">Std Dev</div>
+      </div>
       <div class="numbers-display reveal" id="numbers-display"></div>
       <div class="game-input-row reveal">
         <input class="game-input" id="game-input" type="number" placeholder="?" min="0" max="100" step="0.1">
@@ -573,6 +754,24 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
         <button class="btn-outline" onclick="newGame()">New</button>
       </div>
       <div class="game-result reveal" id="game-result"></div>
+      <div class="game-viz" id="game-viz">
+        <canvas id="game-canvas"></canvas>
+        <div class="game-stats">
+          <div class="game-stat"><div class="game-stat-label">Mean</div><div class="game-stat-value" id="stat-mean">—</div></div>
+          <div class="game-stat"><div class="game-stat-label">Median</div><div class="game-stat-value" id="stat-median">—</div></div>
+          <div class="game-stat"><div class="game-stat-label">Std Dev</div><div class="game-stat-value" id="stat-sd">—</div></div>
+          <div class="game-stat"><div class="game-stat-label">Your Guess</div><div class="game-stat-value your" id="stat-guess">—</div></div>
+        </div>
+        <div class="game-insight" id="game-insight"></div>
+      </div>
+      <div class="game-learn">
+        <div class="game-learn-head">Concept</div>
+        <div class="game-learn-body" id="game-learn-body">
+          <strong>Mean</strong> is the arithmetic average — the balance point of the distribution.
+          <div class="game-learn-formula">x̄ = (Σ xᵢ) / n</div>
+          Sensitive to outliers: a single large value can pull the mean away from where most data sits. In risk modeling, the mean drives expected loss — but tells you nothing about tail risk.
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -688,11 +887,349 @@ let yoeCur = 0;
 const tickYoe = () => { yoeCur = Math.min(yoeCur+.1, yoeTarget); yoeEl.textContent = yoeCur.toFixed(1); if (yoeCur < yoeTarget) setTimeout(tickYoe, 30); };
 setTimeout(tickYoe, 1200);
 
-// Stats game
-let nums = [], mean = 0;
+// Live Market Pulse — load FRED data + sparkline
+(async function() {
+  const card = document.getElementById('pulse-card');
+  try {
+    const resp = await fetch('./data/fred-used-vehicles.json', { cache: 'no-cache' });
+    if (!resp.ok) throw new Error('fetch failed');
+    const data = await resp.json();
+    const obs = data.observations;
+    if (!obs || obs.length < 2) throw new Error('no data');
+
+    const latest = obs[obs.length - 1];
+    const prev = obs[obs.length - 2];
+    const yearAgo = obs[Math.max(0, obs.length - 13)];
+    const last24 = obs.slice(-24);
+    const lo = Math.min(...last24.map(o => o.value));
+    const hi = Math.max(...last24.map(o => o.value));
+
+    const momPct = ((latest.value - prev.value) / prev.value) * 100;
+    const yoyPct = ((latest.value - yearAgo.value) / yearAgo.value) * 100;
+
+    document.getElementById('pulse-value').textContent = latest.value.toFixed(1);
+    document.getElementById('pulse-low').textContent = lo.toFixed(1);
+    document.getElementById('pulse-high').textContent = hi.toFixed(1);
+
+    const dir = momPct > 0.1 ? 'up' : momPct < -0.1 ? 'down' : 'flat';
+    const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '◆';
+    const ch = document.getElementById('pulse-change');
+    ch.className = 'pulse-change ' + dir;
+    ch.innerHTML = `${arrow} ${momPct >= 0 ? '+' : ''}${momPct.toFixed(2)}% MoM &nbsp;·&nbsp; ${yoyPct >= 0 ? '+' : ''}${yoyPct.toFixed(1)}% YoY`;
+
+    const dateStr = new Date(latest.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    document.getElementById('pulse-meta').innerHTML =
+      `${dateStr} · Source: <a href="https://fred.stlouisfed.org/series/CUSR0000SETA02" target="_blank">FRED · CUSR0000SETA02</a>`;
+
+    // Sparkline
+    const sp = document.getElementById('sparkline');
+    const sctx = sp.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    function drawSpark() {
+      const r = sp.getBoundingClientRect();
+      const w = r.width, h = r.height || 70;
+      sp.width = w * dpr; sp.height = h * dpr;
+      sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      sctx.clearRect(0, 0, w, h);
+      const pad = 4;
+      const span = (hi - lo) || 1;
+      const pts = last24.map((o, i) => ({
+        x: pad + (w - pad * 2) * (i / (last24.length - 1)),
+        y: pad + (h - pad * 2) * (1 - (o.value - lo) / span)
+      }));
+      const grad = sctx.createLinearGradient(0, 0, 0, h);
+      grad.addColorStop(0, 'rgba(212, 168, 67, 0.3)');
+      grad.addColorStop(1, 'rgba(212, 168, 67, 0)');
+      sctx.fillStyle = grad;
+      sctx.beginPath();
+      pts.forEach((p, i) => { if (i === 0) sctx.moveTo(p.x, p.y); else sctx.lineTo(p.x, p.y); });
+      sctx.lineTo(pts[pts.length - 1].x, h - pad);
+      sctx.lineTo(pts[0].x, h - pad);
+      sctx.closePath();
+      sctx.fill();
+      const goldHex = getComputedStyle(document.documentElement).getPropertyValue('--gold').trim() || '#d4a843';
+      sctx.strokeStyle = goldHex;
+      sctx.lineWidth = 1.5;
+      sctx.beginPath();
+      pts.forEach((p, i) => { if (i === 0) sctx.moveTo(p.x, p.y); else sctx.lineTo(p.x, p.y); });
+      sctx.stroke();
+      const last = pts[pts.length - 1];
+      sctx.fillStyle = goldHex;
+      sctx.beginPath(); sctx.arc(last.x, last.y, 3, 0, Math.PI * 2); sctx.fill();
+    }
+    drawSpark();
+    window.addEventListener('resize', drawSpark);
+    window.__rvMarketSignal = yoyPct;
+
+    // Populate FRED signal indicator in the RV Explorer
+    const sigEl = document.getElementById('fred-signal');
+    const stateEl = document.getElementById('fred-signal-state');
+    const yoyEl = document.getElementById('fred-signal-yoy');
+    const syncBtn = document.getElementById('fred-signal-sync');
+    if (sigEl) {
+      const suggestion = yoyPct > 1.5 ? 'strong' : yoyPct < -1.5 ? 'weak' : 'normal';
+      stateEl.textContent = suggestion.charAt(0).toUpperCase() + suggestion.slice(1);
+      yoyEl.innerHTML = `<span style="opacity:0.7">(${yoyPct >= 0 ? '+' : ''}${yoyPct.toFixed(1)}% YoY)</span>`;
+      sigEl.style.display = 'flex';
+      syncBtn.addEventListener('click', () => {
+        // Click the matching market button
+        const cell = document.querySelector(`#ctl-mkt .ctl-seg-cell[data-v="${suggestion}"]`);
+        if (cell) cell.click();
+      });
+    }
+  } catch (e) {
+    card.style.display = 'none';
+    console.warn('FRED data unavailable:', e.message);
+  }
+})();
+
+// RV Explorer
+(function() {
+  const cvs = document.getElementById('rv-canvas');
+  const cx = cvs.getContext('2d');
+  let dpr = window.devicePixelRatio || 1;
+  let W = 0, H = 0;
+  function sizeCvs() {
+    const r = cvs.getBoundingClientRect();
+    W = r.width; H = r.height || 360;
+    cvs.width = W * dpr; cvs.height = H * dpr;
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  const TYPES = {
+    sedan:  { y1: 0.20, decay: 0.86, label: 'Sedan' },
+    suv:    { y1: 0.18, decay: 0.88, label: 'SUV' },
+    truck:  { y1: 0.16, decay: 0.90, label: 'Truck' },
+    luxury: { y1: 0.25, decay: 0.82, label: 'Luxury' },
+    bev:    { y1: 0.27, decay: 0.83, label: 'BEV' }
+  };
+  const MARKETS = {
+    weak:   { mult: 0.93, label: 'Weak' },
+    normal: { mult: 1.00, label: 'Normal' },
+    strong: { mult: 1.05, label: 'Strong' }
+  };
+  const state = { type: 'sedan', msrp: 45, mileage: 12, market: 'normal', benchmark: true };
+  const YEARS = 7;
+  let animT = 1;
+  let lastCurve, nextCurve;
+  let animStart = 0;
+
+  function mileageMult(mi) { return Math.pow(0.99, mi - 12); }
+
+  function curve(s) {
+    const t = TYPES[s.type], m = MARKETS[s.market];
+    const mm = mileageMult(s.mileage);
+    const pts = [1.0];
+    for (let y = 1; y <= YEARS; y++) {
+      const base = (1 - t.y1) * Math.pow(t.decay, y - 1);
+      const adj = base * m.mult * Math.pow(mm, y);
+      pts.push(Math.max(0.05, Math.min(1.0, adj)));
+    }
+    return pts;
+  }
+
+  function benchmarkCurve(s) {
+    return curve({ ...s, mileage: 12, market: 'normal' });
+  }
+
+  function draw() {
+    sizeCvs();
+    cx.clearRect(0, 0, W, H);
+    const pad = { l: 50, r: 20, t: 20, b: 40 };
+    const cw = W - pad.l - pad.r, ch = H - pad.t - pad.b;
+    const c = lastCurve.map((v, i) => v + (nextCurve[i] - v) * animT);
+    const bench = benchmarkCurve(state);
+
+    cx.strokeStyle = 'rgba(120,120,140,0.2)';
+    cx.lineWidth = 0.5;
+    cx.font = "10px 'Space Grotesk', sans-serif";
+    cx.fillStyle = 'rgba(170,170,190,0.65)';
+    cx.textAlign = 'right'; cx.textBaseline = 'middle';
+    for (let p = 0; p <= 100; p += 25) {
+      const y = pad.t + ch * (1 - p / 100);
+      cx.beginPath(); cx.moveTo(pad.l, y); cx.lineTo(pad.l + cw, y); cx.stroke();
+      cx.fillText(p + '%', pad.l - 8, y);
+    }
+    cx.textAlign = 'center'; cx.textBaseline = 'top';
+    for (let y = 0; y <= YEARS; y++) {
+      const x = pad.l + cw * (y / YEARS);
+      cx.fillText('Yr ' + y, x, pad.t + ch + 8);
+    }
+
+    if (state.benchmark) {
+      cx.setLineDash([4, 4]);
+      cx.strokeStyle = 'rgba(170,170,190,0.5)';
+      cx.lineWidth = 1.2;
+      cx.beginPath();
+      bench.forEach((v, i) => {
+        const x = pad.l + cw * (i / YEARS);
+        const y = pad.t + ch * (1 - v);
+        if (i === 0) cx.moveTo(x, y); else cx.lineTo(x, y);
+      });
+      cx.stroke();
+      cx.setLineDash([]);
+    }
+
+    const grad = cx.createLinearGradient(0, pad.t, 0, pad.t + ch);
+    grad.addColorStop(0, 'rgba(212, 168, 67, 0.22)');
+    grad.addColorStop(1, 'rgba(212, 168, 67, 0)');
+    cx.fillStyle = grad;
+    cx.beginPath();
+    c.forEach((v, i) => {
+      const x = pad.l + cw * (i / YEARS);
+      const y = pad.t + ch * (1 - v);
+      if (i === 0) cx.moveTo(x, y); else cx.lineTo(x, y);
+    });
+    cx.lineTo(pad.l + cw, pad.t + ch);
+    cx.lineTo(pad.l, pad.t + ch);
+    cx.closePath();
+    cx.fill();
+
+    const goldHex = getComputedStyle(document.documentElement).getPropertyValue('--gold').trim();
+    cx.strokeStyle = goldHex || '#d4a843';
+    cx.lineWidth = 2;
+    cx.beginPath();
+    c.forEach((v, i) => {
+      const x = pad.l + cw * (i / YEARS);
+      const y = pad.t + ch * (1 - v);
+      if (i === 0) cx.moveTo(x, y); else cx.lineTo(x, y);
+    });
+    cx.stroke();
+
+    cx.fillStyle = goldHex || '#d4a843';
+    c.forEach((v, i) => {
+      const x = pad.l + cw * (i / YEARS);
+      const y = pad.t + ch * (1 - v);
+      cx.beginPath(); cx.arc(x, y, 3.5, 0, Math.PI * 2); cx.fill();
+    });
+
+    cx.save();
+    cx.translate(14, pad.t + ch / 2);
+    cx.rotate(-Math.PI / 2);
+    cx.fillStyle = 'rgba(170,170,190,0.7)';
+    cx.font = "10px 'Space Grotesk', sans-serif";
+    cx.textAlign = 'center';
+    cx.fillText('% OF MSRP RETAINED', 0, 0);
+    cx.restore();
+  }
+
+  function fmtMoney(n) { return '$' + Math.round(n).toLocaleString(); }
+
+  function updateStats() {
+    const c = nextCurve;
+    const msrp = state.msrp * 1000;
+    const y1 = c[1], y3 = c[3], y5 = c[5], y7 = c[7];
+    document.getElementById('stat-y1').textContent = (y1 * 100).toFixed(0) + '%';
+    document.getElementById('stat-y1-d').textContent = fmtMoney(msrp * y1);
+    document.getElementById('stat-y3').textContent = (y3 * 100).toFixed(0) + '%';
+    document.getElementById('stat-y3-d').textContent = fmtMoney(msrp * y3);
+    document.getElementById('stat-y5').textContent = (y5 * 100).toFixed(0) + '%';
+    document.getElementById('stat-y5-d').textContent = fmtMoney(msrp * y5);
+    document.getElementById('stat-dep').textContent = ((1 - y7) * 100).toFixed(0) + '%';
+    document.getElementById('stat-dep-d').textContent = '–' + fmtMoney(msrp * (1 - y7));
+  }
+
+  function refresh() {
+    lastCurve = lastCurve.map((v, i) => v + (nextCurve[i] - v) * animT);
+    nextCurve = curve(state);
+    animT = 0;
+    updateStats();
+    document.getElementById('legend-main').textContent =
+      `${TYPES[state.type].label} · ${state.mileage}k mi · ${MARKETS[state.market].label}`;
+  }
+
+  function tick(now) {
+    if (animT < 1) {
+      const raw = Math.min(1, (now - animStart) / 600);
+      animT = 1 - Math.pow(1 - raw, 3);
+      draw();
+      if (animT < 1) requestAnimationFrame(tick);
+      else { animT = 1; draw(); }
+    }
+  }
+  function trigger() { animStart = performance.now(); requestAnimationFrame(tick); }
+
+  document.querySelectorAll('#ctl-type .ctl-seg-cell').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('#ctl-type .ctl-seg-cell').forEach(e => e.classList.remove('active'));
+      el.classList.add('active');
+      state.type = el.dataset.v;
+      document.getElementById('ctl-type-name').textContent = TYPES[state.type].label;
+      refresh(); trigger();
+    });
+  });
+  document.querySelectorAll('#ctl-mkt .ctl-seg-cell').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('#ctl-mkt .ctl-seg-cell').forEach(e => e.classList.remove('active'));
+      el.classList.add('active');
+      state.market = el.dataset.v;
+      document.getElementById('ctl-mkt-name').textContent = MARKETS[state.market].label;
+      refresh(); trigger();
+    });
+  });
+  document.getElementById('ctl-msrp').addEventListener('input', function() {
+    state.msrp = +this.value;
+    document.getElementById('ctl-msrp-v').textContent = '$' + (state.msrp * 1000).toLocaleString();
+    updateStats();
+  });
+  document.getElementById('ctl-mi').addEventListener('input', function() {
+    state.mileage = +this.value;
+    document.getElementById('ctl-mi-v').textContent = (state.mileage * 1000).toLocaleString() + ' mi';
+    refresh(); trigger();
+  });
+  document.getElementById('ctl-benchmark').addEventListener('change', function() {
+    state.benchmark = this.checked; draw();
+  });
+  window.addEventListener('resize', () => { sizeCvs(); draw(); });
+
+  // Initial state
+  nextCurve = curve(state);
+  lastCurve = nextCurve.map(() => 1);
+  updateStats();
+  sizeCvs();
+  draw();
+
+  const initObs = new IntersectionObserver((entries, o) => {
+    if (entries[0].isIntersecting) { trigger(); o.disconnect(); }
+  }, { threshold: 0.15 });
+  initObs.observe(document.getElementById('explorer'));
+})();
+
+// Stats game — upgraded with multi-mode & visualization
+let nums = [], stats = {};
+let gameMode = 'mean';
+
+const LEARN_CONTENT = {
+  mean: `<strong>Mean</strong> is the arithmetic average — the balance point of the distribution.
+    <div class="game-learn-formula">x̄ = (Σ xᵢ) / n</div>
+    Sensitive to outliers: a single large value can pull the mean away from where most data sits. In risk modeling, the mean drives expected loss — but tells you nothing about tail risk.`,
+  median: `<strong>Median</strong> is the middle value when the data is sorted — half above, half below.
+    <div class="game-learn-formula">x₍₍ₙ₊₁₎/₂₎  (for odd n)</div>
+    Robust to outliers: replace your highest value with 10,000 and the median doesn't budge. In residual value forecasting, median used-car prices often track underlying demand more reliably than the mean.`,
+  sd: `<strong>Standard Deviation</strong> measures how spread out the data is around the mean.
+    <div class="game-learn-formula">σ = √(Σ(xᵢ - x̄)² / n)</div>
+    Low σ → values cluster tightly. High σ → wide dispersion, more uncertainty. In portfolio risk, σ is the foundation of Value-at-Risk and Sharpe ratios. For 10 random numbers in [0,100], σ typically lands between 25 and 35.`
+};
+
+function computeStats(arr) {
+  const sorted = [...arr].sort((a, b) => a - b);
+  const n = arr.length;
+  const mean = arr.reduce((a, b) => a + b, 0) / n;
+  const median = n % 2 ? sorted[(n - 1) / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2;
+  const sd = Math.sqrt(arr.reduce((s, x) => s + (x - mean) ** 2, 0) / n);
+  return { mean, median, sd, min: sorted[0], max: sorted[n - 1] };
+}
+
+function targetStat() {
+  return gameMode === 'mean' ? stats.mean : gameMode === 'median' ? stats.median : stats.sd;
+}
+function targetLabel() {
+  return gameMode === 'mean' ? 'mean' : gameMode === 'median' ? 'median' : 'standard deviation';
+}
+
 function newGame() {
   nums = Array.from({length:10}, () => Math.round(Math.random()*100));
-  mean = nums.reduce((a,b)=>a+b,0)/10;
+  stats = computeStats(nums);
   const d = document.getElementById('numbers-display');
   d.innerHTML = '';
   nums.forEach((n,i) => {
@@ -700,19 +1237,137 @@ function newGame() {
     c.style.animationDelay = i*60+'ms'; d.appendChild(c);
   });
   document.getElementById('game-input').value = '';
+  document.getElementById('game-input').placeholder = gameMode === 'sd' ? '? (0–50)' : '? (0–100)';
   document.getElementById('game-result').textContent = '';
   document.getElementById('game-result').className = 'game-result';
+  document.getElementById('game-viz').classList.remove('show');
+  document.getElementById('game-learn-body').innerHTML = LEARN_CONTENT[gameMode];
 }
+
+function drawGameViz(guess) {
+  const cvs = document.getElementById('game-canvas');
+  const cx = cvs.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const r = cvs.getBoundingClientRect();
+  const w = r.width, h = r.height || 120;
+  cvs.width = w * dpr; cvs.height = h * dpr;
+  cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cx.clearRect(0, 0, w, h);
+
+  const pad = 30;
+  const xLine = h - 50;
+  const goldHex = getComputedStyle(document.documentElement).getPropertyValue('--gold').trim() || '#d4a843';
+  const range = gameMode === 'sd' ? 50 : 100;
+  const x = v => pad + (w - pad * 2) * (v / range);
+
+  // axis
+  cx.strokeStyle = 'rgba(120,120,140,0.3)';
+  cx.lineWidth = 1;
+  cx.beginPath(); cx.moveTo(pad, xLine); cx.lineTo(w - pad, xLine); cx.stroke();
+
+  // tick marks
+  cx.fillStyle = 'rgba(170,170,190,0.6)';
+  cx.font = "10px 'Space Grotesk', sans-serif";
+  cx.textAlign = 'center';
+  const tickCount = gameMode === 'sd' ? 5 : 5;
+  for (let i = 0; i <= tickCount; i++) {
+    const val = (range / tickCount) * i;
+    const px = x(val);
+    cx.beginPath(); cx.moveTo(px, xLine - 4); cx.lineTo(px, xLine + 4); cx.stroke();
+    cx.fillText(val.toFixed(0), px, xLine + 18);
+  }
+
+  // numbers as dots
+  if (gameMode !== 'sd') {
+    const counts = {};
+    nums.forEach(n => { counts[n] = (counts[n] || 0) + 1; });
+    Object.keys(counts).forEach(k => {
+      const n = +k, c = counts[k];
+      for (let i = 0; i < c; i++) {
+        cx.fillStyle = 'rgba(170,170,190,0.85)';
+        cx.beginPath();
+        cx.arc(x(n), xLine - 10 - i * 9, 4, 0, Math.PI * 2);
+        cx.fill();
+      }
+    });
+  }
+
+  // helper to draw a vertical marker with label
+  function marker(val, color, label, labelY) {
+    const px = x(val);
+    cx.strokeStyle = color;
+    cx.lineWidth = 1.5;
+    cx.setLineDash([3, 3]);
+    cx.beginPath(); cx.moveTo(px, 15); cx.lineTo(px, xLine); cx.stroke();
+    cx.setLineDash([]);
+    cx.fillStyle = color;
+    cx.beginPath(); cx.arc(px, xLine, 4, 0, Math.PI * 2); cx.fill();
+    cx.font = "600 10px 'Space Grotesk', sans-serif";
+    cx.textAlign = 'center';
+    cx.fillText(label, px, labelY);
+  }
+
+  // true value
+  const tv = targetStat();
+  marker(tv, goldHex, 'TRUE ' + targetLabel().toUpperCase().slice(0, 6), 12);
+  // user's guess
+  if (!isNaN(guess)) {
+    marker(guess, '#e2e8f0', 'YOUR GUESS', 28);
+  }
+}
+
 function checkGuess() {
   const val = parseFloat(document.getElementById('game-input').value);
   if (isNaN(val)) return;
-  const diff = Math.abs(val - mean);
+  const target = targetStat();
+  const diff = Math.abs(val - target);
   const r = document.getElementById('game-result');
-  if (diff === 0) { r.textContent = `Perfect! The mean is exactly ${mean.toFixed(1)}`; r.className='game-result correct'; }
-  else if (diff <= 3) { r.textContent = `Almost! Mean is ${mean.toFixed(1)} — off by ${diff.toFixed(1)}`; r.className='game-result close'; }
-  else { r.textContent = `Mean is ${mean.toFixed(1)} — off by ${diff.toFixed(1)}`; r.className='game-result off'; }
+  const label = targetLabel();
+  const tolerance = gameMode === 'sd' ? 1.5 : 3;
+  if (diff < 0.5) { r.textContent = `Perfect! The ${label} is ${target.toFixed(2)}`; r.className='game-result correct'; }
+  else if (diff <= tolerance) { r.textContent = `Almost! ${label} is ${target.toFixed(2)} — off by ${diff.toFixed(2)}`; r.className='game-result close'; }
+  else { r.textContent = `${label.charAt(0).toUpperCase()+label.slice(1)} is ${target.toFixed(2)} — off by ${diff.toFixed(2)}`; r.className='game-result off'; }
+
+  // Populate stats
+  document.getElementById('stat-mean').textContent = stats.mean.toFixed(1);
+  document.getElementById('stat-median').textContent = stats.median.toFixed(1);
+  document.getElementById('stat-sd').textContent = stats.sd.toFixed(2);
+  document.getElementById('stat-guess').textContent = val.toFixed(1);
+  document.getElementById('game-viz').classList.add('show');
+  setTimeout(() => drawGameViz(val), 100);
+
+  // Dynamic insight based on the data
+  const insightEl = document.getElementById('game-insight');
+  const skew = stats.mean - stats.median;
+  const cv = stats.sd / stats.mean;
+  let insight = '';
+  if (Math.abs(skew) < 1.5) {
+    insight = `<em>Symmetric distribution:</em> mean (${stats.mean.toFixed(1)}) ≈ median (${stats.median.toFixed(1)}). The data is balanced around its center — no strong outliers pulling either way.`;
+  } else if (skew > 0) {
+    insight = `<em>Right-skewed:</em> mean (${stats.mean.toFixed(1)}) > median (${stats.median.toFixed(1)}). A few higher values are pulling the average up. In risk data, this is the tail you worry about.`;
+  } else {
+    insight = `<em>Left-skewed:</em> mean (${stats.mean.toFixed(1)}) < median (${stats.median.toFixed(1)}). A few lower values are pulling the average down — half the data sits above the average.`;
+  }
+  if (cv > 0.55) insight += ` <em>High dispersion</em> (σ/μ = ${cv.toFixed(2)}) — these numbers are widely spread.`;
+  else if (cv < 0.3) insight += ` <em>Tight cluster</em> (σ/μ = ${cv.toFixed(2)}) — values are concentrated.`;
+  insightEl.innerHTML = insight;
 }
+
+document.querySelectorAll('#game-mode .game-mode-cell').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('#game-mode .game-mode-cell').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    gameMode = el.dataset.mode;
+    newGame();
+  });
+});
 document.getElementById('game-input').addEventListener('keydown', e => { if (e.key==='Enter') checkGuess(); });
+window.addEventListener('resize', () => {
+  if (document.getElementById('game-viz').classList.contains('show')) {
+    const g = parseFloat(document.getElementById('game-input').value);
+    drawGameViz(g);
+  }
+});
 newGame();
 
 // Tweaks

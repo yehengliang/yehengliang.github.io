@@ -1,0 +1,61 @@
+name: Update FRED data
+
+on:
+  schedule:
+    # Run monthly on the 15th at 14:00 UTC (FRED CPI releases mid-month)
+    - cron: '0 14 15 * *'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch FRED data
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: |
+          mkdir -p data
+          # Series: CUSR0000SETA02 = CPI Used Cars & Trucks (Seasonally Adjusted)
+          curl -s "https://api.stlouisfed.org/fred/series/observations?series_id=CUSR0000SETA02&api_key=${FRED_API_KEY}&file_type=json&sort_order=desc&limit=36" \
+            -o /tmp/fred-raw.json
+
+          # Get series metadata
+          curl -s "https://api.stlouisfed.org/fred/series?series_id=CUSR0000SETA02&api_key=${FRED_API_KEY}&file_type=json" \
+            -o /tmp/fred-meta.json
+
+          # Transform with python (oldest-first, clean structure)
+          python3 <<'PY'
+          import json, datetime
+          raw = json.load(open('/tmp/fred-raw.json'))
+          meta = json.load(open('/tmp/fred-meta.json'))['seriess'][0]
+          obs = [{'date': o['date'], 'value': float(o['value'])}
+                 for o in raw['observations'] if o['value'] != '.']
+          obs.sort(key=lambda x: x['date'])
+          out = {
+              'series_id': meta['id'],
+              'title': meta['title'],
+              'units': meta['units'],
+              'frequency': meta['frequency'],
+              'source': 'U.S. Bureau of Labor Statistics via FRED (St. Louis Fed)',
+              'last_updated': datetime.date.today().isoformat(),
+              'observations': obs
+          }
+          json.dump(out, open('data/fred-used-vehicles.json', 'w'), indent=2)
+          PY
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/fred-used-vehicles.json
+          if git diff --staged --quiet; then
+            echo "No changes."
+          else
+            git commit -m "chore: update FRED used-vehicle CPI data [auto]"
+            git push
+          fi
