@@ -30,6 +30,17 @@ body { font-family: var(--fb); background: var(--bg); color: var(--text); overfl
 
 #canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.5; }
 
+/* Scroll progress */
+#scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(to right, var(--gold2), var(--gold)); z-index: 200; transition: width 0.1s linear; }
+
+/* Cursor spotlight */
+#spotlight { position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 30%), oklch(76% 0.155 82 / 0.05), transparent 60%); }
+
+/* Back to top */
+#back-top { position: fixed; bottom: 2rem; right: 2rem; z-index: 90; width: 44px; height: 44px; border: 1px solid var(--border); background: oklch(16% 0.02 255 / 0.9); color: var(--gold); font-size: 1.1rem; cursor: pointer; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity 0.3s, transform 0.3s, border-color 0.2s; backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; }
+#back-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#back-top:hover { border-color: var(--gold); }
+
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
@@ -50,6 +61,8 @@ nav.scrolled { background: oklch(11% 0.015 260 / 0.92); border-bottom-color: var
 .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
 .nav-links a:hover { color: var(--gold); }
 .nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--gold); }
+.nav-links a.active::after { width: 100%; }
 
 #home {
   position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center;
@@ -80,8 +93,10 @@ nav.scrolled { background: oklch(11% 0.015 260 / 0.92); border-bottom-color: var
 
 section { position: relative; z-index: 1; padding: 7rem 3rem; }
 .section-inner { max-width: 1100px; margin: 0 auto; }
-.section-label { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+.section-label { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; counter-increment: sec; }
+.section-label::before { content: counter(sec, decimal-leading-zero) " —"; color: var(--muted); letter-spacing: 0.15em; }
 .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+body { counter-reset: sec; }
 .section-title { font-family: var(--fd); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; margin-bottom: 3rem; }
 .section-title em { font-style: italic; color: var(--gold); }
 
@@ -94,7 +109,10 @@ section { position: relative; z-index: 1; padding: 7rem 3rem; }
   opacity: 0; transform: scale(0.85);
   animation: fadeUp 0.8s 0.15s var(--ease-out) forwards;
 }
-.hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.6s var(--ease-out); }
+.hero-photo-wrap { transition: box-shadow 0.4s; cursor: pointer; }
+.hero-photo-wrap:hover { box-shadow: 0 0 0 10px oklch(76% 0.155 82 / 0.12), 0 0 60px oklch(76% 0.155 82 / 0.3); }
+.hero-photo-wrap:hover img { transform: scale(1.08); }
 
 /* Skills bars */
 .skills-chart { display: flex; flex-direction: column; gap: 1rem; }
@@ -112,6 +130,9 @@ section { position: relative; z-index: 1; padding: 7rem 3rem; }
 
 /* Book section */
 #reading { background: var(--bg); }
+.book-list { display: flex; flex-direction: column; gap: 2rem; }
+.book-spine-alt { background: oklch(40% 0.06 260); }
+.book-spine-alt .book-spine-text { color: oklch(88% 0.01 80); }
 .book-card { display: grid; grid-template-columns: 60px 1fr; gap: 3rem; border: 1px solid var(--border); background: var(--surface); overflow: hidden; transition: border-color 0.3s; }
 .book-card:hover { border-color: var(--gold); }
 .book-spine { background: var(--gold); width: 60px; display: flex; align-items: center; justify-content: center; min-height: 400px; flex-shrink: 0; }
@@ -381,6 +402,8 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
 <body>
 
 <canvas id="canvas-bg"></canvas>
+<div id="spotlight"></div>
+<div id="scroll-progress"></div>
 
 <nav id="nav">
   <a class="nav-logo" href="#home">YL</a>
@@ -630,7 +653,8 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
 <section id="reading">
   <div class="section-inner">
     <p class="section-label reveal">Thought Leadership</p>
-    <h2 class="section-title reveal">Book <em>Recommendation</em></h2>
+    <h2 class="section-title reveal">Books <em>I Recommend</em></h2>
+    <div class="book-list">
     <div class="book-card reveal">
       <div class="book-spine">
         <span class="book-spine-text">DATA FEMINISM</span>
@@ -649,8 +673,30 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
           <div class="book-insight"><div class="book-insight-head">Why it matters for quant work</div><div class="book-insight-body">Historical claims data reflects who was insured, on what terms — your model inherits that history. Removing a variable doesn't remove its influence; correlated proxies absorb the signal.</div></div>
           <div class="book-insight"><div class="book-insight-head">Key application</div><div class="book-insight-body">Disparate impact testing, causal DAG analysis, and orthogonalisation — practical tools to audit rating variables for proxy discrimination in pricing models.</div></div>
         </div>
-        <a class="book-link" href="https://datafeminism.mitpress.mit.edu" target="_blank">Read free online &rarr;</a>
+        <a class="book-link" href="https://data-feminism.mitpress.mit.edu/" target="_blank">Read free online &rarr;</a>
       </div>
+    </div>
+
+    <div class="book-card reveal">
+      <div class="book-spine book-spine-alt">
+        <span class="book-spine-text">THE SIGNAL AND THE NOISE</span>
+      </div>
+      <div class="book-content">
+        <div class="book-meta">
+          <span class="book-badge">Recommended Read</span>
+        </div>
+        <div class="book-title">The Signal and the Noise</div>
+        <div class="book-authors">Nate Silver &middot; Penguin Press, 2012</div>
+        <div class="book-desc">
+          Why do so many predictions fail — and some succeed? Silver dissects forecasting across weather, earthquakes, poker, and markets, showing that the best forecasters think <strong>probabilistically</strong>, update beliefs as evidence arrives, and stay humble about what their models don't know.
+        </div>
+        <div class="book-insights">
+          <div class="book-insight"><div class="book-insight-head">Why it matters for quant work</div><div class="book-insight-body">Residual value forecasting is exactly the kind of noisy, structurally-shifting problem Silver describes — the discipline of separating persistent signal from market noise is the daily job.</div></div>
+          <div class="book-insight"><div class="book-insight-head">Key application</div><div class="book-insight-body">Bayesian updating, forecast calibration, and communicating uncertainty as a distribution rather than a point estimate — habits every risk modeler should build.</div></div>
+        </div>
+        <a class="book-link" href="https://www.penguinrandomhouse.com/books/305826/the-signal-and-the-noise-by-nate-silver/" target="_blank">About the book &rarr;</a>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -803,6 +849,8 @@ footer .logo { font-family: var(--fd); font-size: 1.2rem; color: var(--gold); }
   <span>&copy; 2026 Yeheng Liang. All rights reserved.</span>
 </footer>
 
+<button id="back-top" aria-label="Back to top">↑</button>
+
 <div id="tweaks-panel">
   <div class="tw-title">Tweaks</div>
   <label>Accent Color<input type="color" id="tw-accent" value="#d4a843"></label>
@@ -879,6 +927,35 @@ document.querySelectorAll('.skill-bar-row').forEach((el, i) => { el.style.transi
 
 // Nav
 window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 60));
+
+// Scroll progress + back-to-top
+const progressBar = document.getElementById('scroll-progress');
+const backTop = document.getElementById('back-top');
+window.addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  progressBar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+  backTop.classList.toggle('show', scrollY > 600);
+}, { passive: true });
+backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// Cursor spotlight
+const spot = document.getElementById('spotlight');
+window.addEventListener('mousemove', e => {
+  spot.style.setProperty('--mx', e.clientX + 'px');
+  spot.style.setProperty('--my', e.clientY + 'px');
+}, { passive: true });
+
+// Active nav link highlighting
+const navLinks = [...document.querySelectorAll('.nav-links a')];
+const secIds = navLinks.map(a => a.getAttribute('href').slice(1));
+const secObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+secIds.forEach(id => { const el = document.getElementById(id); if (el) secObs.observe(el); });
 
 // YOE counter
 const yoeEl = document.getElementById('yoe-counter');
